@@ -9267,6 +9267,15 @@ button.bg-dark:focus {
   color: #7AB730 !important;
 }
 
+.text-red-title {
+  color: #B23300;
+}
+
+.text-green-title {
+  color: #00763b;
+}
+
+
 a.text-primary:hover, a.text-primary:focus {
   color: #527a20 !important;
 }
