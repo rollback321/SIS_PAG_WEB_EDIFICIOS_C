@@ -10,6 +10,7 @@ $routes = Services::routes();
  * Router Setup
  * --------------------------------------------------------------------
  */
+
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
@@ -47,6 +48,12 @@ $routes->get('/', 'Principal::index',  ['as' => 'inicio']);
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }
+
+/************admin_pag_web*/
+$routes->get('admin', 'Login::mostrar_login',['as' => 'mostrar_login']);
+
+
+/***********public web */
 
 $routes->get('localizacion', 'Principal::localizacion_geo' , ['as' => 'pestaña_localizacion']);
 $routes->get('noticias', 'Principal::noticias' ,  ['as' => 'pestaña_noticias']);
