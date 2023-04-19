@@ -4,7 +4,17 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+ .login-html{
+  width: 500px;
+background:rgba(0,0,0,.7);
+padding: 20px;
+border-radius: 30px;
+position: absolute;
+top: 40%;
+left: 50%;
+margin: -25px 0 0 -250px; /* aplicar a top y al margen izquierdo un valor negativo para completar el centrado del elemento hijo */
 
+}
 
  
 :root {

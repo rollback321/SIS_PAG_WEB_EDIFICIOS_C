@@ -3,7 +3,7 @@
 namespace App\Controllers;
 use CodeIgniter\Controller;
 
-class Principal extends BaseController
+class PrincipalWeb extends BaseController
 {
 
     /********** pestaña inicio  */

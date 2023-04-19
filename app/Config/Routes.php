@@ -30,7 +30,7 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Principal::index',  ['as' => 'inicio']);
+$routes->get('/', 'PrincipalWeb::index',  ['as' => 'inicio']);
 
 /*
  * --------------------------------------------------------------------
@@ -49,14 +49,21 @@ if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }
 
-/************admin_pag_web*/
-$routes->get('admin', 'Login::mostrar_login',['as' => 'mostrar_login']);
+
 
 
 /***********public web */
 
-$routes->get('localizacion', 'Principal::localizacion_geo' , ['as' => 'pestaña_localizacion']);
-$routes->get('noticias', 'Principal::noticias' ,  ['as' => 'pestaña_noticias']);
-$routes->get('galeria', 'Principal::galeria',  ['as' => 'pestaña_galeria']);
-$routes->get('institucion', 'Principal::institucion',  ['as' => 'pestaña_institucion']);
-$routes->get('contactos', 'Principal::contactos',  ['as' => 'pestaña_contactos']);
+$routes->get('localizacion', 'PrincipalWeb::localizacion_geo' , ['as' => 'pestaña_localizacion']);
+$routes->get('noticias', 'PrincipalWeb::noticias' ,  ['as' => 'pestaña_noticias']);
+$routes->get('galeria', 'PrincipalWeb::galeria',  ['as' => 'pestaña_galeria']);
+$routes->get('institucion', 'PrincipalWeb::institucion',  ['as' => 'pestaña_institucion']);
+$routes->get('contactos', 'PrincipalWeb::contactos',  ['as' => 'pestaña_contactos']);
+
+
+/************admin_pag_web*/
+$routes->get('admin', 'Login::mostrar_login',['as' => 'mostrar_login']);
+$routes->post('adm', 'Login::verificar_login');  //verifica el user, pass
+$routes->get('ad', 'Administracion::mostrar_menu_administracion');
+
+
