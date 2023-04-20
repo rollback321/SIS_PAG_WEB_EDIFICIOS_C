@@ -20,14 +20,15 @@ public function verificar_login (){
     $respuesta =  $model_user->verificar_usuario( $user , $pass );
 
     if($respuesta != "0"){
-        	// $datos=array(
-							// 	'session'	=>	true,
-							// 	'id'  		=>	$obj->id_usuario,
-							// 	'nombres'	=>	$obj->username,
-							// 	'roles'		=>	$obj->permiso,
-							// 	'tema' 		=>  $obj->tema
-							// );
-							// $this->session->set_userdata($datos);
+        $session = session();
+            // Añadir un array con datos a la sesión
+            $datos = array(
+                'nombre' => $respuesta[0]->nombre,
+                'apellidos' => $respuesta[1]->apellidos,
+                'tipo_rol' => $respuesta[2]->tipo_rol
+            );
+        $session->set($datos);
+
         echo json_encode($respuesta);
     } else {
         echo json_encode("0");

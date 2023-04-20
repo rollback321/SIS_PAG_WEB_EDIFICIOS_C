@@ -11,7 +11,7 @@ class ModelLogin extends Model{
     public function verificar_usuario ($user,$pass){
 
         $builder = $this->db->table('tb_administrador_sistema ad');
-        $builder->select('ad.nombre, ad.apellidos');
+        $builder->select('ad.nombre, ad.apellidos,rl.tipo_rol');
         $builder->join('tb_rol rl', 'ad.id_pk_rol = rl.id');
         $builder->where('ad.usuario', $user);
         $builder->where('ad.contraseña', $pass);

@@ -1,3 +1,5 @@
+$contardor_de_fallar_iniciar_sesion = 1;
+
 $("#id_alerta_error_usuario_nivel1").hide();
 
 /****************** Petición para la verificacion de usuario  */
@@ -12,13 +14,14 @@ $("#form_register_login").submit(function(event) {
         success: function(datos) {
             if (datos != "0") {
                 $("#id_alerta_error_usuario_nivel1").hide();
-                console.log("datos correctos");
-                window.location = js_base_url+"ad"
-                
-
+               console.log(datos);
+           //    window.location = js_base_url+"ad" 
             } else {
                 $("#id_alerta_error_usuario_nivel1").show();
-                console.log("datos incorrectos");
+                $("#password-field").val("");
+                console.log("errores:"+$contardor_de_fallar_iniciar_sesion+"  ");
+                $contardor_de_fallar_iniciar_sesion = $contardor_de_fallar_iniciar_sesion + 1;
+
             }
         }
     });
