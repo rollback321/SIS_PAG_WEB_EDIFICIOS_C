@@ -16,8 +16,7 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="<?= base_url() ?>/library/plugins/jquery/jquery.min.js"></script>
+
 <!-- jQuery UI 1.11.4 -->
 <script src="<?= base_url() ?>/library/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -30,9 +29,15 @@
 <script src="<?= base_url() ?>/library/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
 <script src="<?= base_url() ?>/library/plugins/sparklines/sparkline.js"></script>
+
+
+
 <!-- JQVMap -->
-<script src="<?= base_url() ?>/library/plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="<?= base_url() ?>/library/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- <script src="base_url() /library/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src=" base_url() /library/plugins/jqvmap/maps/jquery.vmap.usa.js"></script> -->
+
+
+
 <!-- jQuery Knob Chart -->
 <script src="<?= base_url() ?>/library/plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
@@ -49,6 +54,6 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url() ?>/library/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?= base_url() ?>/library/dist/js/pages/dashboard.js"></script>
+
 </body>
 </html>

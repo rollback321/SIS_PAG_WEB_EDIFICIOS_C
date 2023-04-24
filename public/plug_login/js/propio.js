@@ -14,8 +14,8 @@ $("#form_register_login").submit(function(event) {
         success: function(datos) {
             if (datos != "0") {
                 $("#id_alerta_error_usuario_nivel1").hide();
-               console.log(datos);
-           //    window.location = js_base_url+"ad" 
+             //  console.log(datos);
+                window.location = js_base_url+"ad" 
             } else {
                 $("#id_alerta_error_usuario_nivel1").show();
                 $("#password-field").val("");

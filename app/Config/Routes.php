@@ -64,6 +64,10 @@ $routes->get('contactos', 'PrincipalWeb::contactos',  ['as' => 'pestaña_contact
 /************admin_pag_web*/
 $routes->get('admin', 'Login::mostrar_login',['as' => 'mostrar_login']);
 $routes->post('adm', 'Login::verificar_login');  //verifica el user, pass
+$routes->get('cerrar_sesion', 'Login::cerrar_sesion');
 $routes->get('ad', 'Administracion::mostrar_menu_administracion');
+
+/********** Registrar nuevo propietario */
+$routes->post('registrar', 'Propietario::registrar');  //verifica el user, pass
 
 
