@@ -33,6 +33,9 @@
 <script src="<?= base_url() ?>\library\plugins\jquery-validation\jquery.validate.min.js"></script>
 <!-- Sweetalert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- DataTables -->
+<script src="<?= base_url() ?>\library\plugins\datatables\jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="<?= base_url() ?>/library/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 
 <script>
 

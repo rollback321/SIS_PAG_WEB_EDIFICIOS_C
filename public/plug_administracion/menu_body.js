@@ -1,4 +1,18 @@
 $(document).ready(function () {
+        tableInicio = $('#tableInicio').DataTable({
+            processing: true,
+            serverSide: true,
+            order: [],
+            ajax: {
+                url: base_url+'mostrarRegistrosPropietarios',
+                type: 'GET',
+            },
+            columnDefs: [{
+                width: "100px",
+                targets: [1]
+            }, ]
+        });
+
 
     function limpiar_campos_registar_propietario(){
         $('#forPropietario').removeClass('is-valid');
@@ -139,8 +153,11 @@ $.validator.setDefaults({
             },
             success: function(result) {
 
-
-                console.log(result);
+                if(result.status){
+                    mensaje("Registro exitoso");
+                } else {
+                    mensaje("Existe un registro identico 'no se pudo registrar' ");
+                }
                 // if (result.status) {
                 //     notificacionUsuario(type = 'success', message = 'Empresa creada correctamente', icono = 'bx bx-check-circle');
                 //     tableEmpresa.ajax.reload(null, false);
@@ -154,7 +171,7 @@ $.validator.setDefaults({
                 //     notificacionUsuario(type = 'error', message = 'Verifique los datos que ingreso', icono = 'bx bx-x-circle');
                 // }
 
-                mensaje();
+                
             },
             error: function(xhr) {
           //      notificacionUsuario(type = 'error', message = 'Error de servidor', icono = 'bx bx-x-circle');
@@ -175,6 +192,6 @@ $.validator.setDefaults({
 
 });
  
-function mensaje(){
-    Swal.fire("Registro exitoso");
+function mensaje(mensaje){
+    Swal.fire(mensaje);
 }

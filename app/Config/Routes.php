@@ -70,4 +70,5 @@ $routes->get('ad', 'Administracion::mostrar_menu_administracion');
 /********** Registrar nuevo propietario */
 $routes->post('registrar', 'Propietario::registrar');  //verifica el user, pass
 
+$routes->get('hola', 'Propietario::mostrar_tabla_propietarios');
 
