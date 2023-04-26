@@ -9,6 +9,9 @@
 							<li class="nav-item" role="presentation"> <a class="nav-link" data-toggle="modal" data-target="#modalRegistrarPropietario" data-bs-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">REGISTRAR PROPIETARIO</a>
 							</li>
 						</ul>
+
+                  
+
                         <!-- Tabla contenido -->
                         <div class="card radius-20 p-2">
                                                 <div class="tab-content p-3" id="myTabContent">
@@ -93,68 +96,130 @@
                        </div>
 
                        <!-- Modal registrar -->
-                       <div class="modal fade" id="modalRegistrarPropietario" tabindex="-1" role="dialog" aria-labelledby="modalRegistrarPropietarioLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="modalRegistrarPropietarioLabel">Registrar propietario</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
+                         <div class="modal fade" id="modalRegistrarPropietario" tabindex="-1" role="dialog" aria-labelledby="modalRegistrarPropietarioLabel" aria-hidden="true">
+                                 <div class="modal-dialog" role="document">
+                                         <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modalRegistrarPropietarioLabel">Registrar propietario</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
 
 
-                                    <!-- https://codepen.io/Krokodill/pen/EydNbg -->
-                                    <!-- https://codepen.io/julmot/pen/NrYYBE -->
 
-                                    <div class="modal-body">
-                                                        <div class="card">                                                            
-                                                                <div class="p-1 border rounded">
-                                                                    <form class="row g-3" id="forPropietario">
-                                                                        <div class="col-md-12">
-                                                                            <label for="nombrePropietario" class="form-label p-0 m-0">Nombre del propietario </label>
-                                                                            <input type="text" class="form-control form-control-sm  " id="nombrePropietario" name="nombrePropietario" placeholder="Ingrese nombre del propietario">
-                                                                            <span class="text-danger"></span>
-                                                                        </div>
-                                                                        <div class="col-md-12">
-                                                                            <label for="apellidosPropietario" class="form-label p-0 m-0">Apellidos</label>
-                                                                            <input type="text" class="form-control form-control-sm  " id="apellidosPropietario" name="apellidosPropietario" placeholder="Ingrese apellidos del propietario">
-                                                                            <span class="text-danger"></span>
-                                                                        </div>
-                                                                        <div class="col-md-12">
-                                                                            <label for="ciPropietario" class="form-label p-0 m-0">C.I.</label>
-                                                                            <input type="text" class="form-control form-control-sm  " id="ciPropietario" name="ciPropietario" placeholder="Ingrese C.I. con el expedido o extension">
-                                                                            <span class="text-danger"></span>
-                                                                        </div>
-                                                                        <div class="col-md-12">
-                                                                            <label for="celPropietario" class="form-label p-0 m-0">Celular</label>
-                                                                            <input type="number" class="form-control form-control-sm" id="celPropietario" name="celPropietario" placeholder="Ingrese celular">
-                                                                            <span class="text-danger"></span>
-                                                                        </div>
-                                                                        <div class="col-md-12">
-                                                                            <label for="emailPropietario" class="form-label p-0 m-0">Correo electrónico (opcional) </label>
-                                                                            <input type="text" class="form-control form-control-sm  " id="emailPropietario" name="emailPropietario" placeholder="Ingrese correo electronico">
-                                                                            <span class="text-danger"></span>
+                                                    <div class="modal-body">
+                                                                        <div class="card">                                                            
+                                                                                <div class="p-1 border rounded">
+                                                                                    <form class="row g-3" id="forPropietario">
+                                                                                        <div class="col-md-12">
+                                                                                            <label for="nombrePropietario" class="form-label p-0 m-0">Nombre del propietario </label>
+                                                                                            <input type="text" class="form-control form-control-sm  " id="nombrePropietario" name="nombrePropietario" placeholder="Ingrese nombre del propietario">
+                                                                                            <span class="text-danger"></span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12">
+                                                                                            <label for="apellidosPropietario" class="form-label p-0 m-0">Apellidos</label>
+                                                                                            <input type="text" class="form-control form-control-sm  " id="apellidosPropietario" name="apellidosPropietario" placeholder="Ingrese apellidos del propietario">
+                                                                                            <span class="text-danger"></span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12">
+                                                                                            <label for="ciPropietario" class="form-label p-0 m-0">C.I.</label>
+                                                                                            <input type="text" class="form-control form-control-sm  " id="ciPropietario" name="ciPropietario" placeholder="Ingrese C.I. con el expedido o extension">
+                                                                                            <span class="text-danger"></span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12">
+                                                                                            <label for="celPropietario" class="form-label p-0 m-0">Celular</label>
+                                                                                            <input type="number" class="form-control form-control-sm" id="celPropietario" name="celPropietario" placeholder="Ingrese celular">
+                                                                                            <span class="text-danger"></span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12">
+                                                                                            <label for="emailPropietario" class="form-label p-0 m-0">Correo electrónico (opcional) </label>
+                                                                                            <input type="text" class="form-control form-control-sm  " id="emailPropietario" name="emailPropietario" placeholder="Ingrese correo electronico">
+                                                                                            <span class="text-danger"></span>
+                                                                                        </div>
+
+                                                                                        <div class="col-12">
+                                                                                            <div class="d-grid">
+                                                                                                <button class="btn btn-primary " type="submit" id="btnSubmit">Registrar datos</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>                                                          
                                                                         </div>
 
-                                                                        <div class="col-12">
-                                                                            <div class="d-grid">
-                                                                                <button class="btn btn-primary " type="submit" id="btnSubmit">Registrar datos</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>                                                          
-                                                        </div>
-
-                                       
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
- 
-                                    </div>
-                                    </div>
+                                                    
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                
+                                                    </div>
+                                         </div>
                                 </div>
                         </div>
+
+<!-- Modificar registro -->
+                        <div class="modal fade" id="modalModifcarRegistro" tabindex="-1" role="dialog" aria-labelledby="modalRegistrarPropietarioLabel" aria-hidden="true">
+                                 <div class="modal-dialog" role="document">
+                                         <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modalRegistrarPropietarioLabel">Modificar Registro</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+
+
+                                                    <div class="modal-body">
+                                                                        <div class="card">                                                            
+                                                                                <div class="p-1 border rounded">
+                                                                                    <form class="row g-3" id="forPropietario_modificar">
+                                                                                        <div class="col-md-12">
+                                                                                            <label for="nombrePropietario" class="form-label p-0 m-0">Nombre del propietario </label>
+                                                                                            <input type="text" class="form-control form-control-sm  " id="nombrePropietario_modificar" name="nombrePropietario_modificar" placeholder="Ingrese nombre del propietario">
+                                                                                            <input type="text" class="form-control form-control-sm  " id="id_propietario_modificar" name="id_propietario_modificar" >
+                                                                                            <span class="text-danger"></span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12">
+                                                                                            <label for="apellidosPropietario" class="form-label p-0 m-0">Apellidos</label>
+                                                                                            <input type="text" class="form-control form-control-sm  " id="apellidosPropietario_modificar" name="apellidosPropietario_modificar" placeholder="Ingrese apellidos del propietario">
+                                                                                            <span class="text-danger"></span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12">
+                                                                                            <label for="ciPropietario" class="form-label p-0 m-0">C.I.</label>
+                                                                                            <input type="text" class="form-control form-control-sm  " id="ciPropietario_modificar" name="ciPropietario_modificar" placeholder="Ingrese C.I. con el expedido o extension">
+                                                                                            <span class="text-danger"></span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12">
+                                                                                            <label for="celPropietario" class="form-label p-0 m-0">Celular</label>
+                                                                                            <input type="number" class="form-control form-control-sm" id="celPropietario_modificar" name="celPropietario_modificar" placeholder="Ingrese celular">
+                                                                                            <span class="text-danger"></span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12">
+                                                                                            <label for="emailPropietario" class="form-label p-0 m-0">Correo electrónico (opcional) </label>
+                                                                                            <input type="text" class="form-control form-control-sm  " id="emailPropietario_modificar" name="emailPropietario_modificar" placeholder="Ingrese correo electronico">
+                                                                                            <span class="text-danger"></span>
+                                                                                        </div>
+
+                                                                                        <div class="col-12">
+                                                                                            <div class="d-grid">
+                                                                                                <button class="btn btn-primary " type="submit" id="btnSubmit">Modificar registro</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>                                                          
+                                                                        </div>
+
+                                                    
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                
+                                                    </div>
+                                         </div>
+                                </div>
+                          </div>
+
         </div>            
     </div>
 </div>

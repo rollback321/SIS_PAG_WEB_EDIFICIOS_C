@@ -1,23 +1,19 @@
 $(document).ready(function () {
+
+        /******** Instancia el table */
         tableInicio = $('#tableInicio').DataTable({
-            processing: true,
-            serverSide: true,
-            order: [],
-            ajax: {
-                url: base_url+'mostrarRegistrosPropietarios',
-                type: 'GET',
-            },
-            columnDefs: [{
-                width: "100px",
-                targets: [1]
-            }, ]
+            ajax:  base_url+'/listar_datos_dueño'         
         });
 
+        // tableInicio = $('#tableInicio').DataTable({
+        //     ajax: base_url+'/pruebita',
+        // });
 
     function limpiar_campos_registar_propietario(){
         $('#forPropietario').removeClass('is-valid');
         $('#forPropietario').validate().resetForm();
     }
+
 /*****Validacion para agregar solo texto */    
     $.validator.addMethod("pattern", function(value, element, pattern) {
         if (this.optional(element)) {
@@ -155,6 +151,7 @@ $.validator.setDefaults({
 
                 if(result.status){
                     mensaje("Registro exitoso");
+                    tableInicio.ajax.reload(null, false);
                 } else {
                     mensaje("Existe un registro identico 'no se pudo registrar' ");
                 }
@@ -192,6 +189,205 @@ $.validator.setDefaults({
 
 });
  
+/******* Mensaje "Registro exitoso , Error de registro " */
 function mensaje(mensaje){
     Swal.fire(mensaje);
 }
+
+function ventana_confirmacion_delete (registro_id){
+    Swal.fire({
+        title: 'Esta seguro de eliminar el registro?',
+        text: "Confirme si esta seguro de eliminar el registro",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si eliminar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          eliminar_registro (registro_id);
+          Swal.fire(
+            'Registro eliminado',
+            'Registro se elimino con exito',
+            'success'
+          )
+        }
+      })
+}
+
+
+function eliminar_registro (registro_id){
+    $.ajax({
+        type: 'POST',
+        url: base_url+"/eliminar_registro",
+        data: {
+            id_propietario : registro_id
+        },
+        dataType: 'json',
+        success: function(result) {
+            console.log(result);
+            tableInicio.ajax.reload(null, false);
+        },
+        error: function(xhr) {
+      //      notificacionUsuario(type = 'error', message = 'Error de servidor', icono = 'bx bx-x-circle');
+         alert("orcurrio algun error");
+        }
+    });
+}
+
+
+function modificar_registro(id){
+    $.ajax({
+        type: 'POST',
+        url: base_url+"/listar_registro_a_modificar",
+        data: {
+            id_propietario : id
+        },
+        dataType: 'json',
+        success: function(result) {
+            console.log(result[0].nombre_dueño);
+            $("#nombrePropietario_modificar").val(result[0].nombre_dueño);
+            $("#id_propietario_modificar").val(result[0].id);
+            $("#apellidosPropietario_modificar").val(result[0].apellidos);
+            $("#ciPropietario_modificar").val(result[0].ci);
+            $("#celPropietario_modificar").val(result[0].celular);
+            $("#emailPropietario_modificar").val(result[0].correo);
+            $('#modalModifcarRegistro').modal('show');
+
+
+            $("#forPropietario_modificar").validate({
+                rules: {
+                    nombrePropietario: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 70,
+                        pattern: /^[a-zA-Z\s]*$/ ,
+                        limitedSpaces: 8,
+                           
+                    },
+                    apellidosPropietario:{
+                        required: true,
+                        minlength: 3,
+                        maxlength: 70,
+                        pattern: /^[a-zA-Z\s]*$/ ,
+                        limitedSpaces: 8 
+                    } ,
+                    ciPropietario:{
+                        required: true,
+                        minlength: 4,
+                        maxlength:20,
+                        lettersNumbersSpacesAndDash: true,
+                        limitedSpaces: 8 
+                    } ,
+                    celPropietario:{
+                        required: true,
+                        minlength: 8,
+                        maxlength: 8,
+                        validRange: true
+                    },
+                    emailPropietario:{
+                        maxlength: 50,
+                        email:true
+                    }
+    
+                },
+                messages: {
+                    nombrePropietario: {
+                        required: "Campo obligatorio",
+                        minlength: "Introduzca nombre existente",
+                        maxlength: "Hay un exceso de contenido, Verifique los espacios de texto en exceso",
+                        pattern: "Introduzca nombre coherente",
+                        limitedSpaces: "Nose permite espacios de texto multiples, procura añadir de 1 a 3 como máximo"
+                    },
+                    apellidosPropietario:{
+                        required: "Debe introducir sus apellidos",
+                        minlength: "El campo debe tener minimo {0} caracteres",
+                        maxlength: "Hay un exceso de contenido, Verifique los espacios de texto en exceso",
+                        pattern: "Introduzca apellido coherente",
+                        limitedSpaces: "Nose permite espacios de texto multiples, procura añadir de 1 a 3 como máximo"
+                    },
+                    ciPropietario:{
+                        required: "Introduzca su C.I.",
+                        minlength: "C.I. inexistente",
+                        maxlength: "C.I. invalido",
+                        lettersNumbersSpacesAndDash: "No se permiten caracteres especiales a excepcion de '-'",
+                        limitedSpaces: "Nose permite espacios de texto multiples, procura añadir de 1 a 3 como máximo"
+                    },
+                     celPropietario:{
+                        required: "Complete el campo",
+                        minlength: "Introduzca un número de celular coherente",
+                        maxlength: "Introduzca un número de celular coherente",
+                        validRange: "Introduzca un número de celular coherente"
+                    },
+                    emailPropietario:{
+                        maxlength: "Verifique la existencia del correo",
+                        email:"Introduzca un correo válido"
+                    }
+                },
+                   errorElement: "small",           //elemento donde se introducira el tipo de error
+                   errorPlacement: function(error, element) {   // (tipo de error , elemento  input que se dio el error)
+                   // Add the `invalid-feedback` class to the error element
+                   error.addClass("invalid-feedback");
+    
+                    if (element.prop("type") === "checkbox") {
+                        error.insertAfter(element.next("label"));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                }
+            });
+
+        },
+        error: function(xhr) {
+      //      notificacionUsuario(type = 'error', message = 'Error de servidor', icono = 'bx bx-x-circle');
+         alert("orcurrio algun error");
+        }
+    });
+
+   
+    $.validator.setDefaults({          
+        submitHandler: function() {
+            
+             var data = $("#forPropietario_modificar").serialize();
+             $.ajax({
+                type: 'POST',
+                url: base_url+"/modificar_registro",
+                data: data,
+                dataType: 'json',
+                beforeSend: function() {
+                    $('#btnSubmit').prop('disabled', true);
+                },
+                success: function(result) {
+                    
+                    console.log(result);
+                    $('#modalModifcarRegistro').modal('hide');
+                    tableInicio.ajax.reload(null, false);
+                         
+                },
+                error: function(xhr) {
+              alert("orcurrio algun error");
+                },
+                complete: function() {
+                   
+                    $('#btnSubmit').prop('disabled', false);
+                    $('#forPropietario')[0].reset();
+                    $("#forPropietario input").removeClass("is-valid");
+                },
+    
+            });
+    
+           
+     
+        }
+    
+    });
+  
+}
+

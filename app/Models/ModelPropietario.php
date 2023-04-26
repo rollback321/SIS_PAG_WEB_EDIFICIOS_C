@@ -48,59 +48,111 @@ class ModelPropietario extends Model{
     var $column_search = array('nombre_dueño', 'apellidos', 'ci', 'celular', 'correo'); //set column field database for datatable searchable 
     var $order = array('id' => 'desc'); // default order 
 
+    function listar_datos_dueño_propiedad()
+    {
+        $builder = $this->db->table('tb_dueño_edificio');
+        $builder->select('nombre_dueño , apellidos , ci');
+        $query = $builder->get(); // Ejecutar la consulta
+        return $query->getResult();
+    }
+
     private function obtenerTablaEmpresaConsultaSQL()
     {
-        $this->db->from($this->tableEmpresa);      
+        $builder = $this->db->table($this->tableEmpresa);
+    
         $i = 0;
-        foreach ($this->column_search as $item) // loop column 
-        {
-            if ($_POST['search']['value']) // if datatable send POST for search
-            {
-                if ($i === 0) // first loop
-                {
-                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
-                    $this->db->like($item, $_POST['search']['value']);
+        $search_value = $this->request->getPost('search')['value'];
+        $builder->groupStart();
+        foreach ($this->column_search as $item) {
+            if (!empty($search_value)) {
+                if ($i === 0) {
+                    $builder->like($item, $search_value);
                 } else {
-                    $this->db->or_like($item, $_POST['search']['value']);
+                    $builder->orLike($item, $search_value);
                 }
-
-                if (count($this->column_search) - 1 == $i) //last loop
-                    $this->db->group_end(); //close bracket
             }
             $i++;
         }
-
-        
-        if (isset($_POST['order'])) // here order processing
-        {
-            $this->db->order_by($this->column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        $builder->groupEnd();
+    
+        $order_column_index = $this->request->getPost('order')[0]['column'] ?? null;
+        if ($order_column_index !== null) {
+            $order_column = $this->column_order[$order_column_index];
+            $order_direction = $this->request->getPost('order')[0]['dir'];
+            $builder->orderBy($order_column, $order_direction);
         } else if (isset($this->order)) {
-            $order = $this->order;
-            $this->db->order_by(key($order), $order[key($order)]);
+            $builder->orderBy(key($this->order), $this->order[key($this->order)]);
         }
+    
+        $builder->limit($this->request->getPost('length'), $this->request->getPost('start'));
+        return $builder;
     }
 
     function obtenerTablaEmpresa()
     {
-        $this->obtenerTablaEmpresaConsultaSQL();
-        if ($_POST['length'] != -1)
-            $this->db->limit($_POST['length'], $_POST['start']);
-        $query = $this->db->get();
-        return $query->result();
+        $builder = $this->obtenerTablaEmpresaConsultaSQL();
+        if ($this->request->getPost('length') != -1) {
+            $builder->limit($this->request->getPost('length'), $this->request->getPost('start'));
+        }
+        $query = $builder->get();
+        return $query->getResult();
     }
 
     function conteoFiltradoEmpresa()
     {
-        $this->obtenerTablaEmpresaConsultaSQL();
-        $query = $this->db->get();
-        return $query->num_rows();
+        $builder = $this->obtenerTablaEmpresaConsultaSQL();
+        return $builder->countAllResults(); 
     }
 
     public function conteTotalEmpresa()
     {
-        $this->db->from($this->tableEmpresa);
-
-        return $this->db->count_all_results();
+        $builder = $this->db->table($this->tableEmpresa);
+        return $builder->countAll();
     }
-    
+
+    function model_listar_registros_propietario()
+    {
+        $builder = $this->db->table('tb_dueño_edificio');
+        $builder->select('id, nombre_dueño , apellidos , ci, celular, correo');
+        $builder->where('estado_delete',"0");
+        $query = $builder->get(); // Ejecutar la consulta
+        return $query->getResult();
+    }
+ 
+    public function eliminar_registro_propietario($id)
+    {
+        // Elimina el registro con el ID dado
+        // $builder = $this->db->table('tb_dueño_edificio');
+        // $builder->where('id', $id);
+        // $estado = $builder->delete();
+
+        $builder = $this->db->table('tb_dueño_edificio');
+        $builder->where('id', $id);
+        $datos = array(
+            'estado_delete' => '1'
+        );
+        $builder->update($datos);
+
+        $estado = "true";
+        return $estado;
+    }
+
+public function listar_registro_a_modificar_model($id){
+    $builder = $this->db->table('tb_dueño_edificio');
+    $builder->select('id, nombre_dueño , apellidos , ci, celular, correo');
+    $builder->where('id',$id);
+    $query = $builder->get(); // Ejecutar la consulta
+    return $query->getResult();
 }
+
+public function modificar_registro_propietario($datos,$id)
+{
+   $builder = $this->db->table('tb_dueño_edificio');
+   $builder->where('id', $id);
+   $builder->update($datos);
+
+    $estado = "true";
+    return $datos;
+}
+
+   }

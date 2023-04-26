@@ -25,35 +25,96 @@ class Propietario extends Controller{
         echo json_encode($respuesta);
     }
 
+    public function eliminar_registro()
+    {
+        $id = $this->request->getPost("id_propietario");
+        $modelo = new ModelPropietario();
+        $respuesta = $modelo->eliminar_registro_propietario($id);
+        
+        echo json_encode($respuesta."  ID:".$id);
+    
+        // Redirige a la página principal o a la vista de la lista de registros
+      
+    }
+
     public function mostrar_tabla_propietarios()
     {
         $modelo = new ModelPropietario();
-        $list = $modelo->obtenerTablaEmpresa();
+        $respuesta = $modelo->pruebita();
         $data = array();
-        $no = $_POST['start'];
-        foreach ($list as $empresa) {
+        $no = 0;
+
+      // print_r($list);
+        foreach ($respuesta as $propietario) {
             $no++;
             $row = array();
             $row[] = $no;
-            $row[] = $empresa->nombre_dueño;
-            $row[] = $empresa->apellidos;
-            $row[] = $empresa->ci;
-            $row[] = $empresa->celular;
-            $row[] = $empresa->correo;
+            $row[] = $propietario->nombre_dueño;
+            $row[] = $propietario->apellidos;
+            $row[] = $propietario->ci;
+            $row[] = $propietario->celular;
+            $row[] = $propietario->correo;
             // $row[] = '';
-            $row[] = '<button onclick="masDetallesEmpresa(' . $empresa->id . ')" type="button" class="btn btn-sm btn-outline-info m-0 p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver mas detalles"> <i class="bx bx-show me-1"></i></button>
-            <button onclick="editarDetallesEmpresa(' . $empresa->id . ')" type="button" class="btn btn-sm btn-outline-warning m-0 p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar registro"><i class="bx bx-edit me-1"></i></button> 
-            <button onclick="eliminarEmpresa(' . $empresa->id . ')"  type="button" class="btn btn-sm btn-outline-danger m-0 p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar registro"><i class="bx bx-x me-1"></i></button>  ';
+            $row[] = '<button onclick="masDetallesEmpresa(' . $propietario->id . ')" type="button" class="btn btn-sm btn-outline-info m-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver mas detalles"><i class="fas fa-eye"></i> ver </button>
+                <button onclick="editarDetallesEmpresa(' . $propietario->id . ')" type="button" class="btn btn-sm btn-outline-warning m-0 p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar registro"><i class="fas fa-edit"></i> Editar</button> 
+            <button onclick="eliminar_registro()"  type="button" class="btn btn-sm btn-outline-danger m-0 p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar registro"><i class="fas fa-trash-alt"></i> Eliminar</button> ';
             $data[] = $row;
         }
 
         $output = array(
-            "draw" => $_POST['draw'],
-            "recordsTotal" => $modelo->conteTotalEmpresa(),
-            "recordsFiltered" => $modelo->conteoFiltradoEmpresa(),
+           
             "data" => $data,
         );
         echo json_encode($output);
      
     }
+
+    public function listar_datos_dueño()
+    {
+        $modelo = new ModelPropietario();
+        $respuesta = $modelo->model_listar_registros_propietario();
+        $data = array();
+        $no = 0;
+         foreach ($respuesta as $propietario) {
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $propietario->nombre_dueño;
+            $row[] = $propietario->apellidos;
+            $row[] = $propietario->ci;
+            $row[] = $propietario->celular;
+            $row[] = $propietario->correo;
+            // $row[] = '';
+            $row[] = '<button onclick="masDetallesEmpresa(' . $propietario->id . ')" type="button" class="btn btn-sm btn-outline-info m-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver mas detalles"><i class="fas fa-eye"></i> ver </button>
+                <button onclick="modificar_registro(' . $propietario->id . ')" type="button" class="btn btn-sm btn-outline-warning m-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar registro"><i class="fas fa-edit"></i> Editar</button> 
+               <button onclick="ventana_confirmacion_delete (' . $propietario->id . ')"  type="button" class="btn btn-sm btn-outline-danger m-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar registro"><i class="fas fa-trash-alt"></i> Eliminar</button> ';
+            $data[] = $row;
+        }
+
+        echo json_encode(array("data" => $data));
+        // var_dump($respuesta);
+    }
+
+public function listar_registro_a_modificar(){
+    $id = $this->request->getPost("id_propietario");
+    $modelo = new ModelPropietario();
+    $respuesta = $modelo->listar_registro_a_modificar_model($id);
+    echo json_encode($respuesta);
+}
+
+public function modificar_registro(){
+    $id = $this->request->getPost('id_propietario_modificar');
+    $datos = array(
+        "nombre_dueño" =>   $this->request->getPost('nombrePropietario_modificar'),
+        "apellidos" => $this->request->getPost('apellidosPropietario_modificar'),
+        "ci" => $this->request->getPost('ciPropietario_modificar'),
+        "celular" => $this->request->getPost('celPropietario_modificar'),
+        "correo" => $this->request->getPost('emailPropietario_modificar'),
+    );
+
+   $modelo = new ModelPropietario();
+   $respuesta = $modelo->modificar_registro_propietario($datos,$id);
+    echo json_encode($id);
+}
+
 }
