@@ -147,12 +147,30 @@ public function listar_registro_a_modificar_model($id){
 
 public function modificar_registro_propietario($datos,$id)
 {
+
+    
+    /******** Se obtiene el estado_update, para incrementarlo en 1 dado que se esta 
+     *********realizando los cambios a la tabla  */
+    $builder = $this->db->table('tb_dueño_edificio');
+    $builder->select('estado_update');
+    $builder->where('id',$id);
+    $query = $builder->get(); // Ejecutar la consulta
+    $dato_estado_update = $query->getResult();
+
+    /******** Se incorpora el estado_update incrementado en 1, al array datos para 
+     * ****** su respectiva modificación*/
+    $dat = $dato_estado_update[0];
+    $datos["estado_update"] = ($dat->estado_update)+1;
+
+    /******** Se ejecuta la clausula update a la tabla correspondiente */
    $builder = $this->db->table('tb_dueño_edificio');
    $builder->where('id', $id);
    $builder->update($datos);
 
-    $estado = "true";
-    return $datos;
+   /********* Se utiliza un dato vacio para retornar el valor, dado que si
+    * ******* no se retorna ningun dado esta brinda un error de servidor*/
+   $return_data = [];
+   return $return_data;
 }
 
    }

@@ -8,10 +8,19 @@ class Propietario extends Controller{
 
     public function registrar(){
         
+        $ci = $this->request->getPost('ciPropietario');
+        $exp = $this->request->getPost('expPropietario');
+     //   $complemento = $this->request->getPost('complementoPropietario');
+     
+        if($exp != "SIN EXP."){
+            $ci = $ci."-".$exp;
+        }
+
+
         $datos = [
-            "nombre_dueño" =>   $this->request->getPost('nombrePropietario'),
-            "apellidos" => $this->request->getPost('apellidosPropietario'),
-            "ci" => $this->request->getPost('ciPropietario'),
+            "nombre_dueño" =>   trim(strtoupper($this->request->getPost('nombrePropietario'))),
+            "apellidos" => trim(strtoupper($this->request->getPost('apellidosPropietario'))),
+            "ci" =>     $ci,
             "celular" => $this->request->getPost('celPropietario'),
             "correo" => $this->request->getPost('emailPropietario'),
             "estado_update" => 0,
@@ -85,7 +94,7 @@ class Propietario extends Controller{
             $row[] = $propietario->celular;
             $row[] = $propietario->correo;
             // $row[] = '';
-            $row[] = '<button onclick="masDetallesEmpresa(' . $propietario->id . ')" type="button" class="btn btn-sm btn-outline-info m-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver mas detalles"><i class="fas fa-eye"></i> ver </button>
+            $row[] = '<button onclick="masDetallesEmpresa(' . $propietario->id . ')" type="button" class="btn btn-sm btn-outline-info m-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver mas detalles"><i class="fas fa-eye"></i> ver edificios </button>
                 <button onclick="modificar_registro(' . $propietario->id . ')" type="button" class="btn btn-sm btn-outline-warning m-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar registro"><i class="fas fa-edit"></i> Editar</button> 
                <button onclick="ventana_confirmacion_delete (' . $propietario->id . ')"  type="button" class="btn btn-sm btn-outline-danger m-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar registro"><i class="fas fa-trash-alt"></i> Eliminar</button> ';
             $data[] = $row;
@@ -105,8 +114,8 @@ public function listar_registro_a_modificar(){
 public function modificar_registro(){
     $id = $this->request->getPost('id_propietario_modificar');
     $datos = array(
-        "nombre_dueño" =>   $this->request->getPost('nombrePropietario_modificar'),
-        "apellidos" => $this->request->getPost('apellidosPropietario_modificar'),
+        "nombre_dueño" =>   trim(strtoupper($this->request->getPost('nombrePropietario_modificar'))),
+        "apellidos" =>  trim(strtoupper($this->request->getPost('apellidosPropietario_modificar'))),
         "ci" => $this->request->getPost('ciPropietario_modificar'),
         "celular" => $this->request->getPost('celPropietario_modificar'),
         "correo" => $this->request->getPost('emailPropietario_modificar'),
@@ -114,7 +123,7 @@ public function modificar_registro(){
 
    $modelo = new ModelPropietario();
    $respuesta = $modelo->modificar_registro_propietario($datos,$id);
-    echo json_encode($id);
+    echo json_encode($respuesta);
 }
 
 }

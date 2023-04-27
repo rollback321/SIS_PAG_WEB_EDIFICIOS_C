@@ -1,19 +1,24 @@
 $(document).ready(function () {
+       $('.js-example-basic-single').select2();
 
-        /******** Instancia el table */
-        tableInicio = $('#tableInicio').DataTable({
-            ajax:  base_url+'/listar_datos_dueño'         
+    /******* Permiten limpiar las cajas de textos en caso de que haya algún texto enla
+       interfaz de los modales al momento de registrar */
+        $("#cerrar_modal_registrar_propietario").click(function (){
+            $('#forPropietario')[0].reset();
+            $("#forPropietario input").removeClass("is-valid");
         });
 
-        // tableInicio = $('#tableInicio').DataTable({
-        //     ajax: base_url+'/pruebita',
-        // });
+        $("#icon_cerrar_modal_registrar_propietario").click(function (){
+            $('#forPropietario')[0].reset();
+            $("#forPropietario input").removeClass("is-valid");
+        });
+        
 
-    function limpiar_campos_registar_propietario(){
-        $('#forPropietario').removeClass('is-valid');
-        $('#forPropietario').validate().resetForm();
-    }
-
+        /******** Instancia el table */
+                tableInicio = $('#tableInicio').DataTable({
+                        ajax:  base_url+'/listar_datos_dueño'         
+                });
+   
 /*****Validacion para agregar solo texto */    
     $.validator.addMethod("pattern", function(value, element, pattern) {
         if (this.optional(element)) {
@@ -38,7 +43,7 @@ $(document).ready(function () {
 /***** Validar numero de celular   */
 $.validator.addMethod("validRange", function(value, element) {
     return this.optional(element) || (value >= 60000000 && value <= 79999999);
-  }, "Introduzca un número de celular valido");
+  }, "Introduzca un número de celular con ocho caracteres");
 
 //   /****** Validacion para C.I.  menos 4 letras, espacios, guiones y números. */
 //   $.validator.addMethod("atLeastFourLettersSpacesDashesNumbers", function(value, element) {
@@ -65,9 +70,7 @@ $.validator.addMethod("validRange", function(value, element) {
                 ciPropietario:{
                     required: true,
                     minlength: 4,
-                    maxlength:20,
-                    lettersNumbersSpacesAndDash: true,
-                    limitedSpaces: 8 
+                    maxlength:20,                    
                 } ,
                 celPropietario:{
                     required: true,
@@ -100,14 +103,12 @@ $.validator.addMethod("validRange", function(value, element) {
                     required: "Introduzca su C.I.",
                     minlength: "C.I. inexistente",
                     maxlength: "C.I. invalido",
-                    lettersNumbersSpacesAndDash: "No se permiten caracteres especiales a excepcion de '-'",
-                    limitedSpaces: "Nose permite espacios de texto multiples, procura añadir de 1 a 3 como máximo"
                 },
                  celPropietario:{
                     required: "Complete el campo",
-                    minlength: "Introduzca un número de celular coherente",
-                    maxlength: "Introduzca un número de celular coherente",
-                    validRange: "Introduzca un número de celular coherente"
+                    minlength: "Introduzca un número de celular con ocho dígitos",
+                    maxlength: "Introduzca un número de celular con ocho dígitos",
+                    validRange: "Introduzca un número de celular con ocho dígitos"
                 },
                 emailPropietario:{
                     maxlength: "Verifique la existencia del correo",
@@ -155,24 +156,9 @@ $.validator.setDefaults({
                 } else {
                     mensaje("Existe un registro identico 'no se pudo registrar' ");
                 }
-                // if (result.status) {
-                //     notificacionUsuario(type = 'success', message = 'Empresa creada correctamente', icono = 'bx bx-check-circle');
-                //     tableEmpresa.ajax.reload(null, false);
-                //     $('#formEmpresa')[0].reset();
-                //     $('.form-control').removeClass('is-valid');
-                // } else {
-                //     $.each(result.errors, function(key, val) {
-                //         $('input[name="' + key + '"]').next().html(val).addClass('has-error');
-                //         $('select[name="' + key + '"]').next().html(val).addClass('has-error');
-                //     })
-                //     notificacionUsuario(type = 'error', message = 'Verifique los datos que ingreso', icono = 'bx bx-x-circle');
-                // }
-
-                
             },
             error: function(xhr) {
-          //      notificacionUsuario(type = 'error', message = 'Error de servidor', icono = 'bx bx-x-circle');
-          alert("orcurrio algun error");
+                alert("orcurrio algun error");
             },
             complete: function() {
                
@@ -246,7 +232,7 @@ function modificar_registro(id){
         },
         dataType: 'json',
         success: function(result) {
-            console.log(result[0].nombre_dueño);
+          //  console.log(result);
             $("#nombrePropietario_modificar").val(result[0].nombre_dueño);
             $("#id_propietario_modificar").val(result[0].id);
             $("#apellidosPropietario_modificar").val(result[0].apellidos);
@@ -258,7 +244,7 @@ function modificar_registro(id){
 
             $("#forPropietario_modificar").validate({
                 rules: {
-                    nombrePropietario: {
+                    nombrePropietario_modificar: {
                         required: true,
                         minlength: 3,
                         maxlength: 70,
@@ -266,61 +252,61 @@ function modificar_registro(id){
                         limitedSpaces: 8,
                            
                     },
-                    apellidosPropietario:{
+                    apellidosPropietario_modificar:{
                         required: true,
                         minlength: 3,
                         maxlength: 70,
                         pattern: /^[a-zA-Z\s]*$/ ,
                         limitedSpaces: 8 
                     } ,
-                    ciPropietario:{
+                    ciPropietario_modificar:{
                         required: true,
                         minlength: 4,
                         maxlength:20,
                         lettersNumbersSpacesAndDash: true,
                         limitedSpaces: 8 
                     } ,
-                    celPropietario:{
+                    celPropietario_modificar:{
                         required: true,
                         minlength: 8,
                         maxlength: 8,
                         validRange: true
                     },
-                    emailPropietario:{
+                    emailPropietario_modificar:{
                         maxlength: 50,
                         email:true
                     }
     
                 },
                 messages: {
-                    nombrePropietario: {
+                    nombrePropietario_modificar: {
                         required: "Campo obligatorio",
                         minlength: "Introduzca nombre existente",
                         maxlength: "Hay un exceso de contenido, Verifique los espacios de texto en exceso",
                         pattern: "Introduzca nombre coherente",
                         limitedSpaces: "Nose permite espacios de texto multiples, procura añadir de 1 a 3 como máximo"
                     },
-                    apellidosPropietario:{
+                    apellidosPropietario_modificar:{
                         required: "Debe introducir sus apellidos",
                         minlength: "El campo debe tener minimo {0} caracteres",
                         maxlength: "Hay un exceso de contenido, Verifique los espacios de texto en exceso",
                         pattern: "Introduzca apellido coherente",
                         limitedSpaces: "Nose permite espacios de texto multiples, procura añadir de 1 a 3 como máximo"
                     },
-                    ciPropietario:{
+                    ciPropietario_modificar:{
                         required: "Introduzca su C.I.",
                         minlength: "C.I. inexistente",
                         maxlength: "C.I. invalido",
                         lettersNumbersSpacesAndDash: "No se permiten caracteres especiales a excepcion de '-'",
                         limitedSpaces: "Nose permite espacios de texto multiples, procura añadir de 1 a 3 como máximo"
                     },
-                     celPropietario:{
+                     celPropietario_modificar:{
                         required: "Complete el campo",
-                        minlength: "Introduzca un número de celular coherente",
-                        maxlength: "Introduzca un número de celular coherente",
-                        validRange: "Introduzca un número de celular coherente"
+                        minlength: "Introduzca un número de celular debe contar con 8 digitos",
+                        maxlength: "Introduzca un número de celular debe contar con 8 digitos",
+                        validRange: "Introduzca un número de celular debe contar con 8 digitos"
                     },
-                    emailPropietario:{
+                    emailPropietario_modificar:{
                         maxlength: "Verifique la existencia del correo",
                         email:"Introduzca un correo válido"
                     }
@@ -366,13 +352,14 @@ function modificar_registro(id){
                 },
                 success: function(result) {
                     
-                    console.log(result);
+                  //  console.log(result);
                     $('#modalModifcarRegistro').modal('hide');
                     tableInicio.ajax.reload(null, false);
+                    Swal.fire("Registro modificado con exito");
                          
                 },
                 error: function(xhr) {
-              alert("orcurrio algun error");
+              alert("Error en el servidor");
                 },
                 complete: function() {
                    

@@ -54,6 +54,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url() ?>/library/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src = "<?= base_url() ?>/library/config_style_personal/configuracionPersonalizada.js" ></script>
 
 </body>
 </html>
