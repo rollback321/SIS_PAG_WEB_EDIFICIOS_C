@@ -1,5 +1,6 @@
-<link href="<?= base_url() ?>/library\plugins/select2/css/select2.css" rel="stylesheet" />
-<script src="<?= base_url() ?>/library\plugins/select2/js/select2.js"></script>
+
+
+
 <script src="<?= base_url()?>/plug_administracion/menu_body.js"></script>
 
 
@@ -9,98 +10,126 @@
 	<!--page-content-wrapper-->
 	<div class="page-content-wrapper">
 		<div class="page-content p-2">
-                        <ul class="nav nav-pills p-2" id="myTab" role="tablist">
-							<li class="nav-item" role="presentation"> <a class="nav-link active" id="home-tab" data-bs-toggle="tab"  role="tab" aria-controls="home" aria-selected="true">PROPIETARIOS</a>
-							</li>
-							<li class="nav-item" role="presentation"> <a class="nav-link" data-toggle="modal" data-target="#modalRegistrarPropietario" data-bs-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">REGISTRAR PROPIETARIO</a>
-							</li>
-						</ul>
+                        <!-- <ul class="nav nav-pills p-2" id="myTab" role="tablist">
+							<li class="nav-item" role="presentation"> <a class="nav-link active" id="home-tab" data-bs-toggle="tab"  role="tab" aria-controls="home" aria-selected="true">PROPIETARIOS</a>							</li>
+							<li class="nav-item" role="presentation"> <a class="nav-link" data-toggle="modal" data-target="#modalRegistrarPropietario" data-bs-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">REGISTRAR PROPIETARIO</a></li>
+                            <li class="nav-item" role="presentation"> <a class="nav-link" aria-selected="false" href = "" >EDIFICIOS</a></li>
+						</ul> -->
 
-                  
+                            
+                                            <div class="card card-primary card-tabs">
+                                                    <div class="card-header p-0 pt-1">
+                                                        <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">PROPIETARIOS</a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">EDIFICIOS</a>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
 
-                        <!-- Tabla contenido -->
-                        <div class="card radius-20 p-2">
-                                                <div class="tab-content p-3" id="myTabContent">
-                                                <div class="tab-pane fade show active" id="documentosAVencer" role="tabpanel" aria-labelledby="home-tab">
-                                                    <div class="table-responsive">
-                                                        <table  class="table  table-striped table-bordered mb-0  " id="tableInicio">
-                                                            <thead class="">
-                                                                <tr>
-                                                                    <th>Nro.</th>
-                                                                    <th>Nombre</th>
-                                                                    <th>Apellidos</th>
-                                                                    <th>C.I.</th>
-                                                                    <th>Celular</th>
-                                                                    <th>Correo</th>
-                                                                    <th>Opciones</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                  
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="documentosVencidos" role="tabpanel" aria-labelledby="btnDocExpirado">
-                                                    <div class="table-responsive">
-                                                        <table class="table  table-striped table-bordered mb-0" id="tableInicioExpirados">
-                                                            <thead class="thead-dark">
-                                                                <tr>
-                                                                    <th>Nro.</th>
-                                                                    <th>Nombre</th>
-                                                                    <th>Apellidos</th>
-                                                                    <th>C.I.</th>
-                                                                    <th>Celular</th>
-                                                                    <th>Correo</th>
-                                                                    <th>Opciones</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="documentosDevueltos" role="tabpanel" aria-labelledby="btnDocDevueltos">
-                                                    <div class="table-responsive">
-                                                        <table class="table  table-striped table-bordered mb-0" id="tableInicioDevueltos">
-                                                            <thead class="thead-dark">
-                                                                 <tr>
-                                                                    <th>Nro.</th>
-                                                                    <th>Nombre</th>
-                                                                    <th>Apellidos</th>
-                                                                    <th>C.I.</th>
-                                                                    <th>Celular</th>
-                                                                    <th>Correo</th>
-                                                                    <th>Opciones</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="documentosLegalizados" role="tabpanel" aria-labelledby="btnDoclegalizados">
-                                                    <div class="table-responsive">
-                                                        <table class="table  table-striped table-bordered mb-0" id="tableInicioLegalizados">
-                                                            <thead class="thead-dark">
-                                                                <tr>
-                                                                    <th>Nro.</th>
-                                                                    <th>Nombre</th>
-                                                                    <th>Apellidos</th>
-                                                                    <th>C.I.</th>
-                                                                    <th>Celular</th>
-                                                                    <th>Correo</th>
-                                                                    <th>Opciones</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                            </div>
-                       </div>
+                                                    <div class="card-body">
+                                                                    <div class="tab-content" id="custom-tabs-one-tabContent">
+                                                                                 <!-- TABLA CONTENIDO DE TABLA -->
+                                                                                <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
+                                                                                                    <button type="button" class="btn btn-block btn-outline-primary " style="width: 200px; "  data-toggle="modal" data-target="#modalRegistrarPropietario" data-bs-toggle="tab">REGISTRAR PROPIETARIO</button>
+                                                                                                    <div class="tab-content p-3" id="myTabContent">
+                                                                                                                <div class="tab-pane fade show active" id="documentosAVencer" role="tabpanel" aria-labelledby="home-tab">
+                                                                                                                    <div class="table-responsive">
+                                                                                                                        <table  class="table  table-striped table-bordered mb-0  " id="tableInicio">
+                                                                                                                            <thead class="">
+                                                                                                                                <tr>
+                                                                                                                                    <th>Nro.</th>
+                                                                                                                                    <th>Nombre</th>
+                                                                                                                                    <th>Apellidos</th>
+                                                                                                                                    <th>C.I.</th>
+                                                                                                                                    <th>Celular</th>
+                                                                                                                                    <th>Correo</th>
+                                                                                                                                    <th>Opciones</th>
+                                                                                                                                </tr>
+                                                                                                                            </thead>
+                                                                                                                            <tbody>
+                                                                                                                                
+                                                                                                                            </tbody>
+                                                                                                                        </table>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="tab-pane fade" id="documentosVencidos" role="tabpanel" aria-labelledby="btnDocExpirado">
+                                                                                                                    <div class="table-responsive">
+                                                                                                                        <table class="table  table-striped table-bordered mb-0" id="tableInicioExpirados">
+                                                                                                                            <thead class="thead-dark">
+                                                                                                                                <tr>
+                                                                                                                                    <th>Nro.</th>
+                                                                                                                                    <th>Nombre</th>
+                                                                                                                                    <th>Apellidos</th>
+                                                                                                                                    <th>C.I.</th>
+                                                                                                                                    <th>Celular</th>
+                                                                                                                                    <th>Correo</th>
+                                                                                                                                    <th>Opciones</th>
+                                                                                                                                </tr>
+                                                                                                                            </thead>
+                                                                                                                            <tbody>
+                                                                                                                            </tbody>
+                                                                                                                        </table>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="tab-pane fade" id="documentosDevueltos" role="tabpanel" aria-labelledby="btnDocDevueltos">
+                                                                                                                    <div class="table-responsive">
+                                                                                                                        <table class="table  table-striped table-bordered mb-0" id="tableInicioDevueltos">
+                                                                                                                            <thead class="thead-dark">
+                                                                                                                                <tr>
+                                                                                                                                    <th>Nro.</th>
+                                                                                                                                    <th>Nombre</th>
+                                                                                                                                    <th>Apellidos</th>
+                                                                                                                                    <th>C.I.</th>
+                                                                                                                                    <th>Celular</th>
+                                                                                                                                    <th>Correo</th>
+                                                                                                                                    <th>Opciones</th>
+                                                                                                                                </tr>
+                                                                                                                            </thead>
+                                                                                                                            <tbody>
+                                                                                                                            </tbody>
+                                                                                                                        </table>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="tab-pane fade" id="documentosLegalizados" role="tabpanel" aria-labelledby="btnDoclegalizados">
+                                                                                                                    <div class="table-responsive">
+                                                                                                                        <table class="table  table-striped table-bordered mb-0" id="tableInicioLegalizados">
+                                                                                                                            <thead class="thead-dark">
+                                                                                                                                <tr>
+                                                                                                                                    <th>Nro.</th>
+                                                                                                                                    <th>Nombre</th>
+                                                                                                                                    <th>Apellidos</th>
+                                                                                                                                    <th>C.I.</th>
+                                                                                                                                    <th>Celular</th>
+                                                                                                                                    <th>Correo</th>
+                                                                                                                                    <th>Opciones</th>
+                                                                                                                                </tr>
+                                                                                                                            </thead>
+                                                                                                                            <tbody>
+                                                                                                                            </tbody>
+                                                                                                                        </table>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                     </div><!-- <div class="tab-content p-3"> -->
+                                   
+                                                                                </div><!-- <div class="tab-pane fade show active" -->
+                                                                   
+                                                                                <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+                                                                     
+                                                                
+                                                                                </div>                                                                  
+                                                                     </div><!-- <div class="tab-content"> -->
+                                                     </div><!-- /.card -->
+                                        </div> <!-- <div class="card card-primary > -->
 
+
+                       
+                    
+<!-- ==========================================
+                MODALES
+========================================== -->
                        <!-- Modal registrar -->
                          <div class="modal fade" id="modalRegistrarPropietario" tabindex="-1" role="dialog" aria-labelledby="modalRegistrarPropietarioLabel" aria-hidden="true">
                                  <div class="modal-dialog" role="document">
@@ -132,7 +161,7 @@
                                                                                                           <div class="col-md-12">
                                                                                                                             <label for="ciPropietario" class="form-label p-0 m-0">C.I.</label>
                                                                                                                                 <div class="row justify-content-center">
-                                                                                                                                <p class = "pl-md-6">Nro.: &nbsp;</p>  <input type="number" class="form-control form-control-sm col-5" id="ciPropietario" name="ciPropietario" placeholder="Ingrese C.I.">&nbsp;&nbsp;&nbsp;
+                                                                                                                                                <p class = "pl-md-6">Nro.: &nbsp;</p>  <input type="number" class="form-control form-control-sm col-5" id="ciPropietario" name="ciPropietario" placeholder="Ingrese C.I.">&nbsp;&nbsp;&nbsp;
                                                                                                                                     
                                                                                                                                                 <p class = "pl-md-3">EXP: &nbsp;</p> 
                                                                                                                                                 
@@ -149,7 +178,15 @@
                                                                                                                                                             <option>CH</option>
                                                                                                                                                     </select>                                                                                   
                                                                                                                                 </div>
-                                                                                                                                                                                                                                                        
+                                                                                                                                <label>Complemento  (Seleccione..)</label>
+                                                                                                                                <select class="form-control select2" style="width: 30%;"> 
+                                                                                                                                        <option>Sin compl.</option>   
+                                                                                                                                        <script>
+                                                                                                                                            for (var i = 65; i <= 90; i++) {
+                                                                                                                                            document.write('<option>-' + String.fromCharCode(i) + '</option>');
+                                                                                                                                            }
+                                                                                                                                        </script>
+                                                                                                                                </select>                                                                                                                                            
                                                                                                          </div>
                                                                                                                                                                                                    
                                                                                         <div class="col-md-12">
@@ -180,7 +217,7 @@
                                 </div>
                         </div>
 
-<!-- Modificar registro -->
+                    <!-- Modificar registro -->
                         <div class="modal fade" id="modalModifcarRegistro" tabindex="-1" role="dialog" aria-labelledby="modalRegistrarPropietarioLabel" aria-hidden="true">
                                  <div class="modal-dialog" role="document">
 
@@ -244,7 +281,61 @@
                                 </div>
                           </div>
 
-        </div>            
+
+
+
+
+      
+                        </div> 
+                        
+                    <!-- Modal ver edificios -->
+                        <div class="modal fade" id="modal-xl">
+                            <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h4 class="modal-title">Extra Large Modal</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                <p>One fine body&hellip;</p>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                       
+<!-- Modal Registrar edificios -->
+                        <div class="modal fade" id="ver">
+                            <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h4 class="modal-title">Extra Large Modal</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                <p>One fine body&hellip;</p>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        
+
+                        
     </div>
 </div>
 

@@ -18,8 +18,7 @@ public function verificar_login (){
     $respuesta =  $model_user->verificar_usuario( $user , $pass );
 
     if($respuesta != "0"){
-        $session = session();
-        
+        $session = session();      
             $datos = array(
                 'nombre' => $respuesta[0]->nombre,
                 'apellidos' => $respuesta[0]->apellidos,

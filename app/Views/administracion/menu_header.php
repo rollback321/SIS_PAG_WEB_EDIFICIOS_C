@@ -40,11 +40,13 @@
 <script src="<?= base_url() ?>\library\plugins\datatables\jquery.dataTables.min.js"></script>
 <script src="<?= base_url() ?>\library\plugins\datatables-bs4\js\dataTables.bootstrap4.min.js"></script>
 
-<script>
+<!-- Select2 -->
+<link rel="stylesheet" href="<?= base_url()?>/library/plugins/select2/css/select2.css">
+<link rel="stylesheet" href="<?= base_url()?>/library/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+<script src="<?= base_url()?>/library/plugins/select2/js/select2.full.js"></script>
 
-let base_url = "<?= base_url(); ?>"
 
-</script>
+<script> let base_url = "<?= base_url(); ?>";  </script>
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -140,6 +142,25 @@ let base_url = "<?= base_url(); ?>"
               </p>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+            <i class="fas fa-user-cog"></i>
+              <p>
+                Administrador
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+            <i class="fas fa-globe"></i>
+              <p>
+                Pagina Web
+              </p>
+            </a>
+          </li>
+
           <li class="nav-header">Opciones</li>
           <li class="nav-item">
             <a href="<?= base_url() ?>/cerrar_sesion" class="nav-link">

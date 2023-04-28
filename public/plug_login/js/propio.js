@@ -19,10 +19,27 @@ $("#form_register_login").submit(function(event) {
             } else {
                 $("#id_alerta_error_usuario_nivel1").show();
                 $("#password-field").val("");
-                console.log("errores:"+$contardor_de_fallar_iniciar_sesion+"  ");
+               // console.log("errores:"+$contardor_de_fallar_iniciar_sesion+"  ");
                 $contardor_de_fallar_iniciar_sesion = $contardor_de_fallar_iniciar_sesion + 1;
 
             }
-        }
+
+           // console.log(datos);
+        }, error: function(xhr) {
+              mensaje_error_servidor()
+       }
     });
 });
+
+var Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+});
+function mensaje_error_servidor(){
+    Toast.fire({
+        icon: 'error',
+        title: 'Error de servidor'
+    });
+}

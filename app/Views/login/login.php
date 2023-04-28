@@ -9,7 +9,9 @@
 	<link rel="stylesheet" href="<?= base_url() ?>//plug_login/css/style.css">
 	
 	<script >  js_base_url = "<?= base_url() ?>";</script>
-
+	<!-- Sweetalert -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	
 	</head>
 	<body class="img js-fullheight" style="background-image: url(<?= base_url() ?>plug_login/images/fondo.jpg);">
 	<section class="ftco-section">

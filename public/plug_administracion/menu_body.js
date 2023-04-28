@@ -1,22 +1,42 @@
 $(document).ready(function () {
-       $('.js-example-basic-single').select2();
+
+    $('.select2').select2({
+        dropdownParent: $('#modalRegistrarPropietario'),
+        theme : "bootstrap4",
+        placeholder: "Seleccionar opcion"
+    })
+       
+                /*===================================================
+                                VARIABLES GLOBALES
+                =====================================================*/
+                
+
 
     /******* Permiten limpiar las cajas de textos en caso de que haya algún texto enla
        interfaz de los modales al momento de registrar */
         $("#cerrar_modal_registrar_propietario").click(function (){
+            var form_ref = $('#forPropietario');
+            var form = form_ref.validate();
+            form.resetForm();
             $('#forPropietario')[0].reset();
             $("#forPropietario input").removeClass("is-valid");
+          
         });
 
         $("#icon_cerrar_modal_registrar_propietario").click(function (){
+            var form_ref = $('#forPropietario');
+            var form = form_ref.validate();
+            form.resetForm();
             $('#forPropietario')[0].reset();
             $("#forPropietario input").removeClass("is-valid");
+         
         });
         
 
         /******** Instancia el table */
                 tableInicio = $('#tableInicio').DataTable({
-                        ajax:  base_url+'/listar_datos_dueño'         
+                        ajax:  base_url+'/listar_datos_dueño',
+                        responsive : false
                 });
    
 /*****Validacion para agregar solo texto */    
@@ -151,14 +171,14 @@ $.validator.setDefaults({
             success: function(result) {
 
                 if(result.status){
-                    mensaje("Registro exitoso");
+                    mensaje_registro_exitoso_multi_opcion();
                     tableInicio.ajax.reload(null, false);
                 } else {
                     mensaje("Existe un registro identico 'no se pudo registrar' ");
                 }
             },
             error: function(xhr) {
-                alert("orcurrio algun error");
+                mensaje_error_servidor()
             },
             complete: function() {
                
@@ -175,32 +195,7 @@ $.validator.setDefaults({
 
 });
  
-/******* Mensaje "Registro exitoso , Error de registro " */
-function mensaje(mensaje){
-    Swal.fire(mensaje);
-}
 
-function ventana_confirmacion_delete (registro_id){
-    Swal.fire({
-        title: 'Esta seguro de eliminar el registro?',
-        text: "Confirme si esta seguro de eliminar el registro",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        cancelButtonText: 'Cancelar',
-        confirmButtonText: 'Si eliminar'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          eliminar_registro (registro_id);
-          Swal.fire(
-            'Registro eliminado',
-            'Registro se elimino con exito',
-            'success'
-          )
-        }
-      })
-}
 
 
 function eliminar_registro (registro_id){
@@ -217,10 +212,12 @@ function eliminar_registro (registro_id){
         },
         error: function(xhr) {
       //      notificacionUsuario(type = 'error', message = 'Error de servidor', icono = 'bx bx-x-circle');
-         alert("orcurrio algun error");
+      mensaje_error_servidor()
         }
     });
 }
+
+
 
 
 function modificar_registro(id){
@@ -332,8 +329,7 @@ function modificar_registro(id){
 
         },
         error: function(xhr) {
-      //      notificacionUsuario(type = 'error', message = 'Error de servidor', icono = 'bx bx-x-circle');
-         alert("orcurrio algun error");
+          mensaje_error_servidor()
         }
     });
 
@@ -359,7 +355,7 @@ function modificar_registro(id){
                          
                 },
                 error: function(xhr) {
-              alert("Error en el servidor");
+                     mensaje_error_servidor()
                 },
                 complete: function() {
                    
@@ -377,4 +373,84 @@ function modificar_registro(id){
     });
   
 }
+/*================================================================
+=                         MENSAJES EMERGENTES                  =
+================================================================*/
+function verEdificios (id){
+    $("#modal-xl").modal('show');
+}
 
+
+
+/******* Mensaje "Registro exitoso , Error de registro " */
+function mensaje(mensaje){
+    Swal.fire(mensaje);
+}
+
+/******* Mensaje "Registro exitoso" opcion de registrar edificio */
+function mensaje_registro_exitoso_multi_opcion(){
+    Swal.fire({
+        title: 'Registro exitoso',
+        text: "Desea continuar con el registro del edificio cholet",
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si continuar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          
+                /*** Vaciar el formulario y resetear las validaciones */
+                var form_ref = $('#forPropietario');
+                var form = form_ref.validate();
+                form.resetForm();
+                $('#forPropietario')[0].reset();
+                $("#forPropietario input").removeClass("is-valid");
+
+                $('#modalRegistrarPropietario').modal('hide');
+                $('#ver').modal('show');
+                
+        
+
+
+        }
+      })
+}
+
+
+function ventana_confirmacion_delete (registro_id){
+    Swal.fire({
+        title: 'Esta seguro de eliminar el registro?',
+        text: "Confirme si esta seguro de eliminar el registro",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si eliminar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          eliminar_registro (registro_id);
+          Swal.fire(
+            'Registro eliminado',
+            'Registro se elimino con exito',
+            'success'
+          )
+        }
+      })
+}
+
+ /****** Mensaje de error al servidor */
+ var Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+});
+function mensaje_error_servidor(){
+    Toast.fire({
+        icon: 'error',
+        title: 'Error de servidor'
+    });
+}
