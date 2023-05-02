@@ -11,8 +11,8 @@ public function mostrar_login (){
 
 public function verificar_login (){
      
-    $pass = md5($this->request->getPost('pass'));
-    $user = $this->request->getPost('user');
+    $pass = md5(trim(strtoupper($this->request->getPost('pass'))));
+    $user = trim(strtoupper($this->request->getPost('user')));
     $model_user = new ModelLogin();
     
     $respuesta =  $model_user->verificar_usuario( $user , $pass );

@@ -1,0 +1,47 @@
+
+      
+#map {
+	width: 900px;
+  height: 600px;
+	
+}
+
+
+fieldset {
+	border: 1px solid #1592db;
+    border-radius: 5px;
+    padding: 5px;
+  
+}
+
+legend {
+	
+	border: 1px solid #66869A;
+	border-radius: 4px;
+	color: #4591c0;
+	font-size: 17px;
+	font-weight: bold;
+	padding: 5px;
+	width: auto;
+	
+}
+
+#text_indicador{
+	color: #66869A;
+}
+
+.btn_abrir_maps{
+	width: 100px;
+	height: 25px;
+}
+
+#google_maps{
+	border: 1px solid #109e46;
+
+    border-radius: 5px;
+    padding: 5px;
+}
+.title_google_maps{
+	color: #109e46;;
+}
+

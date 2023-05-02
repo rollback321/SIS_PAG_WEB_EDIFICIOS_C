@@ -113,7 +113,7 @@ class ModelPropietario extends Model{
     function model_listar_registros_propietario()
     {
         $builder = $this->db->table('tb_dueño_edificio');
-        $builder->select('id, nombre_dueño , apellidos , ci, celular, correo');
+        $builder->select('id, nombre_dueño , apellido_paterno , apellido_materno , otro_apellido , ci, celular, correo');
         $builder->where('estado_delete',"0");
         $query = $builder->get(); // Ejecutar la consulta
         return $query->getResult();
@@ -139,7 +139,7 @@ class ModelPropietario extends Model{
 
 public function listar_registro_a_modificar_model($id){
     $builder = $this->db->table('tb_dueño_edificio');
-    $builder->select('id, nombre_dueño , apellidos , ci, celular, correo');
+    $builder->select('id, nombre_dueño , apellido_paterno , apellido_materno , otro_apellido , ci, celular, correo');
     $builder->where('id',$id);
     $query = $builder->get(); // Ejecutar la consulta
     return $query->getResult();

@@ -1,16 +1,17 @@
 $(document).ready(function () {
 
+    $("#contenedor_mostrar_google_maps").hide();
+
     $('.select2').select2({
         dropdownParent: $('#modalRegistrarPropietario'),
         theme : "bootstrap4",
         placeholder: "Seleccionar opcion"
-    })
-       
+    });
+      
                 /*===================================================
                                 VARIABLES GLOBALES
                 =====================================================*/
                 
-
 
     /******* Permiten limpiar las cajas de textos en caso de que haya algún texto enla
        interfaz de los modales al momento de registrar */
@@ -20,7 +21,8 @@ $(document).ready(function () {
             form.resetForm();
             $('#forPropietario')[0].reset();
             $("#forPropietario input").removeClass("is-valid");
-          
+            $(".select2").val("1").trigger("change");
+            
         });
 
         $("#icon_cerrar_modal_registrar_propietario").click(function (){
@@ -29,7 +31,7 @@ $(document).ready(function () {
             form.resetForm();
             $('#forPropietario')[0].reset();
             $("#forPropietario input").removeClass("is-valid");
-         
+            $(".select2").val("1").trigger("change"); 
         });
         
 
@@ -60,6 +62,20 @@ $(document).ready(function () {
             return this.optional(element) || /^[a-zA-Z0-9\s\-]+$/.test(value);
           }, "Solo se permiten letras, números, espacios y guiones.");
           
+ /**** Para validar los apellodos al menos uno que este con contenido */         
+    $.validator.addMethod('alMenosUno', function(value, element) {
+              var campo1 = $('#apellidoPaternoPropietario').val();
+              var campo2 = $('#apellidoMaternoPropietario').val();
+              return campo1 !== '' || campo2 !== '';
+            }, 'Debes ingresar un valor en al menos uno de los apellidos.');
+
+/**** Para validar los apellodos al menos uno que este con contenido */         
+    $.validator.addMethod('alMenosUno_mod', function(value, element) {
+        var campo1 = $('#apellidoPaternoPropietario_modificar').val();
+        var campo2 = $('#apellidoMaternoPropietario_modificar').val();
+        return campo1 !== '' || campo2 !== '';
+      }, 'Debes ingresar un valor en al menos uno de los apellidos.');
+
 /***** Validar numero de celular   */
 $.validator.addMethod("validRange", function(value, element) {
     return this.optional(element) || (value >= 60000000 && value <= 79999999);
@@ -80,9 +96,25 @@ $.validator.addMethod("validRange", function(value, element) {
                     limitedSpaces: 8,
                        
                 },
-                apellidosPropietario:{
-                    required: true,
+                OtroapellidoPropietario:{
+                    required: false,
                     minlength: 3,
+                    maxlength: 70,
+                    pattern: /^[a-zA-Z\s]*$/ ,
+                    limitedSpaces: 8
+                },
+                apellidoPaternoPropietario:{
+                    required: false,
+                    minlength: 3,
+                    alMenosUno: true,
+                    maxlength: 70,
+                    pattern: /^[a-zA-Z\s]*$/ ,
+                    limitedSpaces: 8 
+                } ,
+                apellidoMaternoPropietario:{
+                    required: false,
+                    minlength: 3,
+                    alMenosUno: true,
                     maxlength: 70,
                     pattern: /^[a-zA-Z\s]*$/ ,
                     limitedSpaces: 8 
@@ -107,17 +139,31 @@ $.validator.addMethod("validRange", function(value, element) {
             messages: {
                 nombrePropietario: {
                     required: "Campo obligatorio",
-                    minlength: "Introduzca nombre existente",
+                    minlength: "Introduzca nombre",
                     maxlength: "Hay un exceso de contenido, Verifique los espacios de texto en exceso",
-                    pattern: "Introduzca nombre coherente",
+                    pattern: "Introduzca nombre",
                     limitedSpaces: "Nose permite espacios de texto multiples, procura añadir de 1 a 3 como máximo"
                 },
-                apellidosPropietario:{
-                    required: "Debe introducir sus apellidos",
+                apellidoPaternoPropietario:{
+                    
                     minlength: "El campo debe tener minimo {0} caracteres",
                     maxlength: "Hay un exceso de contenido, Verifique los espacios de texto en exceso",
-                    pattern: "Introduzca apellido coherente",
+                    pattern: "Solo se permite texto",
                     limitedSpaces: "Nose permite espacios de texto multiples, procura añadir de 1 a 3 como máximo"
+                },
+                apellidoMaternoPropietario:{
+                    
+                    minlength: "El campo debe tener minimo {0} caracteres",
+                    maxlength: "Hay un exceso de contenido, Verifique los espacios de texto en exceso",
+                    pattern: "Solo se permite texto",
+                    limitedSpaces: "Nose permite espacios de texto multiples, procura añadir de 1 a 3 como máximo"
+                },
+                OtroapellidoPropietario:{
+                    required: false,
+                    minlength: "El campo debe tener minimo {0} caracteres",
+                    maxlength: "Hay un exceso de contenido, Verifique los espacios de texto en exceso",
+                    pattern: "Solo se permite texto" ,
+                    limitedSpaces: 8
                 },
                 ciPropietario:{
                     required: "Introduzca su C.I.",
@@ -169,9 +215,8 @@ $.validator.setDefaults({
                 $('#btnSubmit').prop('disabled', true);
             },
             success: function(result) {
-
                 if(result.status){
-                    mensaje_registro_exitoso_multi_opcion();
+                    mensaje_registro_exitoso_multi_opcion(result.data);
                     tableInicio.ajax.reload(null, false);
                 } else {
                     mensaje("Existe un registro identico 'no se pudo registrar' ");
@@ -185,6 +230,7 @@ $.validator.setDefaults({
                 $('#btnSubmit').prop('disabled', false);
                 $('#forPropietario')[0].reset();
                 $("#forPropietario input").removeClass("is-valid");
+                $(".select2").val("1").trigger("change"); 
             },
 
         });
@@ -232,9 +278,13 @@ function modificar_registro(id){
           //  console.log(result);
             $("#nombrePropietario_modificar").val(result[0].nombre_dueño);
             $("#id_propietario_modificar").val(result[0].id);
-            $("#apellidosPropietario_modificar").val(result[0].apellidos);
-            $("#ciPropietario_modificar").val(result[0].ci);
-            $("#celPropietario_modificar").val(result[0].celular);
+            $("#apellidoPaternoPropietario_modificar").val(result[0].apellido_paterno);
+            $("#apellidoMaternoPropietario_modificar").val(result[0].apellido_materno);  
+            $("#OtroapellidoPropietario_modificar").val(result[0].otro_apellido);
+            $("#ciPropietario_modificar").val(parseInt(obtenerNumeros(result[0].ci)));
+            $("#expPropietario_modificar").val(obtener_exp_ci(result[0].ci));
+            $("#ciComplemento_modificar").val(obtener_complemento_ci(result[0].ci));       
+            $("#celPropietario_modificar").val(parseInt(result[0].celular));
             $("#emailPropietario_modificar").val(result[0].correo);
             $('#modalModifcarRegistro').modal('show');
 
@@ -249,9 +299,25 @@ function modificar_registro(id){
                         limitedSpaces: 8,
                            
                     },
-                    apellidosPropietario_modificar:{
-                        required: true,
+                    OtroapellidoPropietario_modificar:{
+                        required: false,
                         minlength: 3,
+                        maxlength: 70,
+                        pattern: /^[a-zA-Z\s]*$/ ,
+                        limitedSpaces: 8
+                    },
+                    apellidoPaternoPropietario_modificar:{
+                        
+                        minlength: 3,
+                        alMenosUno_mod: true,
+                        maxlength: 70,
+                        pattern: /^[a-zA-Z\s]*$/ ,
+                        limitedSpaces: 8 
+                    } ,
+                    apellidoMaternoPropietario_modificar:{
+                       
+                        minlength: 3,
+                        alMenosUno_mod: true,
                         maxlength: 70,
                         pattern: /^[a-zA-Z\s]*$/ ,
                         limitedSpaces: 8 
@@ -260,8 +326,6 @@ function modificar_registro(id){
                         required: true,
                         minlength: 4,
                         maxlength:20,
-                        lettersNumbersSpacesAndDash: true,
-                        limitedSpaces: 8 
                     } ,
                     celPropietario_modificar:{
                         required: true,
@@ -278,17 +342,31 @@ function modificar_registro(id){
                 messages: {
                     nombrePropietario_modificar: {
                         required: "Campo obligatorio",
-                        minlength: "Introduzca nombre existente",
+                        minlength: "Introduzca nombre",
                         maxlength: "Hay un exceso de contenido, Verifique los espacios de texto en exceso",
-                        pattern: "Introduzca nombre coherente",
+                        pattern: "Introduzca nombre",
                         limitedSpaces: "Nose permite espacios de texto multiples, procura añadir de 1 a 3 como máximo"
                     },
-                    apellidosPropietario_modificar:{
-                        required: "Debe introducir sus apellidos",
+                    apellidoPaternoPropietario_modificar:{
+                    
                         minlength: "El campo debe tener minimo {0} caracteres",
                         maxlength: "Hay un exceso de contenido, Verifique los espacios de texto en exceso",
-                        pattern: "Introduzca apellido coherente",
+                        pattern: "Solo se permite texto",
                         limitedSpaces: "Nose permite espacios de texto multiples, procura añadir de 1 a 3 como máximo"
+                    },
+                    apellidoMaternoPropietario_modificar:{
+                    
+                        minlength: "El campo debe tener minimo {0} caracteres",
+                        maxlength: "Hay un exceso de contenido, Verifique los espacios de texto en exceso",
+                        pattern: "Solo se permite texto",
+                        limitedSpaces: "Nose permite espacios de texto multiples, procura añadir de 1 a 3 como máximo"
+                    },
+                    OtroapellidoPropietario_modificar:{
+                        required: false,
+                        minlength: "El campo debe tener minimo {0} caracteres",
+                        maxlength: "Hay un exceso de contenido, Verifique los espacios de texto en exceso",
+                        pattern: "Solo se permite texto" ,
+                        limitedSpaces: 8
                     },
                     ciPropietario_modificar:{
                         required: "Introduzca su C.I.",
@@ -348,7 +426,7 @@ function modificar_registro(id){
                 },
                 success: function(result) {
                     
-                  //  console.log(result);
+                   console.log(result);
                     $('#modalModifcarRegistro').modal('hide');
                     tableInicio.ajax.reload(null, false);
                     Swal.fire("Registro modificado con exito");
@@ -388,7 +466,7 @@ function mensaje(mensaje){
 }
 
 /******* Mensaje "Registro exitoso" opcion de registrar edificio */
-function mensaje_registro_exitoso_multi_opcion(){
+function mensaje_registro_exitoso_multi_opcion(id){
     Swal.fire({
         title: 'Registro exitoso',
         text: "Desea continuar con el registro del edificio cholet",
@@ -409,7 +487,7 @@ function mensaje_registro_exitoso_multi_opcion(){
                 $("#forPropietario input").removeClass("is-valid");
 
                 $('#modalRegistrarPropietario').modal('hide');
-                $('#ver').modal('show');
+                verEdificios(id);
                 
         
 
@@ -454,3 +532,40 @@ function mensaje_error_servidor(){
         title: 'Error de servidor'
     });
 }
+
+/*================================================================
+=          FUNCIONES AUXILIARES                                  =
+================================================================*/
+
+/*****Esta funcion solo obtien numeros de un conjunto de caracteres */
+function obtenerNumeros(cadena) {
+    return cadena.replace(/[^0-9]/g, '');
+  }
+
+  function obtener_exp_ci(ci){
+
+        var posicionComa = ci.indexOf(",");
+    if (posicionComa !== -1) {
+        partes = ci.split(",");
+        resultado = partes[1];
+    
+    } else {
+        resultado = "SIN EXP.";
+    }
+   
+   return resultado;
+  }
+
+  function obtener_complemento_ci(ci){
+
+        var posicionComa = ci.indexOf("-");
+    if (posicionComa !== -1) {
+        let posicion = ci.indexOf("-");
+        let letra = ci.charAt(posicion + 1);
+        resultado = "-"+letra;
+    } else {
+        resultado = "Sin compl.";
+    }
+    return resultado;
+
+  }

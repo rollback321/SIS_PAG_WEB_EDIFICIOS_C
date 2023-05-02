@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>Innova El Alto</title>
+
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -29,6 +30,9 @@
   <link rel="stylesheet" href="<?= base_url() ?>/library/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="<?= base_url() ?>/library/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   
+  <link rel="stylesheet" href="<?= base_url() ?>/plug_administracion/menu_body.css">
+
+ 
 
   <!-- jQuery -->
 <script src="<?= base_url() ?>/library/plugins/jquery/jquery.min.js"></script>
@@ -45,6 +49,10 @@
 <link rel="stylesheet" href="<?= base_url()?>/library/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
 <script src="<?= base_url()?>/library/plugins/select2/js/select2.full.js"></script>
 
+ <!-- Google maps -->
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArd1YkZuCYGMXO2dG8FeF5W11bX_3bkzQ&callback=initMap">
+</script>
 
 <script> let base_url = "<?= base_url(); ?>";  </script>
 

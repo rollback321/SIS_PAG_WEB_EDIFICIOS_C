@@ -10,16 +10,28 @@ class Propietario extends Controller{
         
         $ci = $this->request->getPost('ciPropietario');
         $exp = $this->request->getPost('expPropietario');
+        $complementoCi =  $this->request->getPost('ciComplemento');
      //   $complemento = $this->request->getPost('complementoPropietario');
      
+     if( $complementoCi == "Sin compl." ){
+        
         if($exp != "SIN EXP."){
-            $ci = $ci."-".$exp;
+            $ci = $ci.",".$exp;
+        } else {
+            $ci = $ci;
         }
-
+     } else {
+        $ci = $ci."".$complementoCi;
+        if($exp != "SIN EXP."){
+            $ci = $ci.",".$exp;
+        }
+     }   
 
         $datos = [
             "nombre_dueño" =>   trim(strtoupper($this->request->getPost('nombrePropietario'))),
-            "apellidos" => trim(strtoupper($this->request->getPost('apellidosPropietario'))),
+            "apellido_paterno" => trim(strtoupper($this->request->getPost('apellidoPaternoPropietario'))),
+            "apellido_materno" => trim(strtoupper($this->request->getPost('apellidoMaternoPropietario'))),
+            "otro_apellido" => trim(strtoupper($this->request->getPost('OtroapellidoPropietario'))),
             "ci" =>     $ci,
             "celular" => $this->request->getPost('celPropietario'),
             "correo" => $this->request->getPost('emailPropietario'),
@@ -59,7 +71,7 @@ class Propietario extends Controller{
             $row = array();
             $row[] = $no;
             $row[] = $propietario->nombre_dueño;
-            $row[] = $propietario->apellidos;
+            $row[] = $propietario->apellido_paterno." ".$propietario->apellido_materno;
             $row[] = $propietario->ci;
             $row[] = $propietario->celular;
             $row[] = $propietario->correo;
@@ -84,12 +96,20 @@ class Propietario extends Controller{
         $respuesta = $modelo->model_listar_registros_propietario();
         $data = array();
         $no = 0;
+        $apellidos = "";
          foreach ($respuesta as $propietario) {
             $no++;
             $row = array();
             $row[] = $no;
             $row[] = $propietario->nombre_dueño;
-            $row[] = $propietario->apellidos;
+
+            if( $propietario->otro_apellido != ""){
+                $apellidos = $propietario->apellido_paterno." ".$propietario->apellido_materno." de ".$propietario->otro_apellido;
+            } else {
+                $apellidos = $propietario->apellido_paterno." ".$propietario->apellido_materno;
+            }
+
+            $row[] = $apellidos;
             $row[] = $propietario->ci;
             $row[] = $propietario->celular;
             $row[] = $propietario->correo;
@@ -98,6 +118,7 @@ class Propietario extends Controller{
                 <button onclick="modificar_registro(' . $propietario->id . ')" type="button" class="btn btn-sm btn-outline-warning m-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar registro"><i class="fas fa-edit"></i> Editar</button> 
                <button onclick="ventana_confirmacion_delete (' . $propietario->id . ')"  type="button" class="btn btn-sm btn-outline-danger m-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar registro"><i class="fas fa-trash-alt"></i> Eliminar</button> ';
             $data[] = $row;
+            $apellidos = "";
         }
 
         echo json_encode(array("data" => $data));
@@ -113,17 +134,42 @@ public function listar_registro_a_modificar(){
 
 public function modificar_registro(){
     $id = $this->request->getPost('id_propietario_modificar');
+
+    $ci = $this->request->getPost('ciPropietario_modificar');
+        $exp = $this->request->getPost('expPropietario_modificar');
+        $complementoCi =  $this->request->getPost('ciComplemento_modificar');
+     //   $complemento = $this->request->getPost('complementoPropietario');
+     
+     if( $complementoCi == "Sin compl." ){
+        
+        if($exp != "SIN EXP."){
+            $ci = $ci.",".$exp;
+        } else {
+            $ci = $ci;
+        }
+     } else {
+        $ci = $ci."".$complementoCi;
+        if($exp != "SIN EXP."){
+            $ci = $ci.",".$exp;
+        }
+     }   
+
     $datos = array(
         "nombre_dueño" =>   trim(strtoupper($this->request->getPost('nombrePropietario_modificar'))),
-        "apellidos" =>  trim(strtoupper($this->request->getPost('apellidosPropietario_modificar'))),
-        "ci" => $this->request->getPost('ciPropietario_modificar'),
+        "apellido_paterno" => trim(strtoupper($this->request->getPost('apellidoPaternoPropietario_modificar'))),
+        "apellido_materno" => trim(strtoupper($this->request->getPost('apellidoMaternoPropietario_modificar'))),
+        "otro_apellido" => trim(strtoupper($this->request->getPost('OtroapellidoPropietario_modificar'))),
+        "ci" =>     $ci,
         "celular" => $this->request->getPost('celPropietario_modificar'),
-        "correo" => $this->request->getPost('emailPropietario_modificar'),
+        "correo" => $this->request->getPost('emailPropietario_modificar')    
     );
+
+    //echo "<script> console.log(".$datos.") </script>";
 
    $modelo = new ModelPropietario();
    $respuesta = $modelo->modificar_registro_propietario($datos,$id);
     echo json_encode($respuesta);
+  //  echo json_encode($datos);
 }
 
 }

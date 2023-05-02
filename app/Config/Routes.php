@@ -67,14 +67,17 @@ $routes->post('adm', 'Login::verificar_login');  //verifica el user, pass
 $routes->get('cerrar_sesion', 'Login::cerrar_sesion');
 $routes->get('ad', 'Administracion::mostrar_menu_administracion');
 
-/********** Registrar nuevo propietario */
+/********** PROPIETARIO  CRUD************/
 $routes->post('registrar', 'Propietario::registrar');  //verifica el user, pass
-
-// $routes->get('hola', 'Propietario::mostrar_tabla_propietarios');
 $routes->get('listar_datos_dueño', 'Propietario::listar_datos_dueño');
 $routes->post('eliminar_registro', 'Propietario::eliminar_registro');
 $routes->post('listar_registro_a_modificar', 'Propietario::listar_registro_a_modificar');
 $routes->post('modificar_registro', 'Propietario::modificar_registro');
+
+
+/********** EDIFICIO CRUD************/
+$routes->post('registrar_edificio', 'Edificio_cholet::registrar');
+
 
 
 
