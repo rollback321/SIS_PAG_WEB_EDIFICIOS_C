@@ -172,4 +172,8 @@ public function modificar_registro(){
   //  echo json_encode($datos);
 }
 
+
+
+
+
 }

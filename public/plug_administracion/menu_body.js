@@ -456,6 +456,37 @@ function modificar_registro(id){
 ================================================================*/
 function verEdificios (id){
     $("#modal-xl").modal('show');
+    $("#id_propietario").val(id);
+
+    $.ajax({
+        type: 'POST',
+        url: base_url+"/verificar_si_existencia_propietario",
+        data: {
+            id_propietario: id
+        },
+        dataType: 'json',
+        beforeSend: function() {
+        },
+        success: function(result) {
+            
+           console.log(result);
+            // $('#modalModifcarRegistro').modal('hide');
+            // tableInicio.ajax.reload(null, false);
+            // Swal.fire("Registro modificado con exito");
+                 
+        },
+        error: function(xhr) {
+             mensaje_error_servidor()
+        },
+        complete: function() {
+           
+            // $('#btnSubmit').prop('disabled', false);
+            // $('#forPropietario')[0].reset();
+            // $("#forPropietario input").removeClass("is-valid");
+        },
+
+    });
+
 }
 
 

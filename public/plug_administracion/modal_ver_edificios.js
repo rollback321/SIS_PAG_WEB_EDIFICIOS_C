@@ -37,7 +37,7 @@ function  initMap(){
          textSelect = "Distrito "+ $("#distrito").val();
        }
        
-       var textSelectZona = $("#zona").val();
+       var textSelectZona = $("#lugarRefencia").val();
        var inputAddress = "La paz, El Alto "+textSelect+" "+textSelectZona;
        geocoder.geocode({
          'address' : inputAddress
@@ -62,8 +62,45 @@ $(document).ready(function () {
         e.preventDefault();
         $("#contenedor_mostrar_google_maps").hide();
     });
-});
 
+
+
+$("#formEdificio").validate({
+  rules: {
+    coordenadasEdificioLatitud: {
+          required: true,                 
+      },
+      coordenadasEdificioLonguitud:{
+          required: true,
+      }
+  },
+  messages: {
+    coordenadasEdificioLatitud: {
+          required: "Campo obligatorio",
+      },
+      coordenadasEdificioLonguitud:{
+        required: "Campo obligatorio",
+      }
+  },
+     errorElement: "small",           //elemento donde se introducira el tipo de error
+     errorPlacement: function(error, element) {   // (tipo de error , elemento  input que se dio el error)
+     // Add the `invalid-feedback` class to the error element
+     error.addClass("invalid-feedback");
+
+      if (element.prop("type") === "checkbox") {
+          error.insertAfter(element.next("label"));
+      } else {
+          error.insertAfter(element);
+      }
+  },
+  highlight: function(element, errorClass, validClass) {
+      $(element).addClass("is-invalid").removeClass("is-valid");
+  },
+  unhighlight: function(element, errorClass, validClass) {
+      $(element).addClass("is-valid").removeClass("is-invalid");
+  }
+});
+});
 
 // Registrar edificio
 
@@ -72,6 +109,7 @@ $.validator.setDefaults({
     submitHandler: function() {
         
          var data = $("#formEdificio").serialize();
+    
          $.ajax({
             type: 'POST',
             url: base_url+"/registrar_edificio",
@@ -106,9 +144,9 @@ $.validator.setDefaults({
 
        
  
-    }
+     }
 
-});
+ });
 
 
 

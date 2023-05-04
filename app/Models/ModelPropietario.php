@@ -173,4 +173,7 @@ public function modificar_registro_propietario($datos,$id)
    return $return_data;
 }
 
+
+
+
    }
