@@ -95,19 +95,23 @@
                                                     <div class="modal-body">
                                                                         <div class="card">                                                            
                                                                                 <div class="p-1 border rounded border-info" style="">
-                                                                                <div class="row form-group ">
-                                                                                    <div class = "col-5">
-                                                                                        <label for="inputEmail4">Sexo</label>
+                                                                                                                                                                                               
+                                                                                <div class="row ">
+                                                                                    <div class = "col-sm-3">
+                                                                                        <label for="inputEmail4 " class = "font-italic">Sexo:</label> 
+                                                                                    </div>
+                                                                                    <div class = "col-sm-4">
+                                                                                        
                                                                                         <div class="form-check">
-                                                                                            <input class="form-check-input" type="radio" name="generoJefe" value="1" checked>
+                                                                                            <input class="form-check-input" type="radio" name="generoPropietario" id = "generoPropietarioMasculino"   checked>
                                                                                             <label class="form-check-label" for="flexRadioDefault2">
                                                                                                 Masculino
                                                                                             </label>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class = "col-5">
+                                                                                    <div class = "col-sm-4">
                                                                                         <div class="form-check">
-                                                                                            <input class="form-check-input" type="radio" name="generoJefe" value="0">
+                                                                                            <input class="form-check-input" type="radio" name="generoPropietario"  id = "generoPropietarioFemenino">
                                                                                             <label class="form-check-label" for="flexRadioDefault1">
                                                                                                 Femenimo
                                                                                             </label>
@@ -133,7 +137,7 @@
                                                                                             </div>
                                                                                             <span class="text-danger"></span>
                                                                                         </div>
-                                                                                        <div class="col-md-12 font-italic mt-2">
+                                                                                        <div class="col-md-12 font-italic mt-2" id = "groupApellido_de_casada">
                                                                                             <label for="" style = "color:#66869A; " class="form-label p-0 m-0">Apellido de casada (opcional)</label>
                                                                                                     <div class="row">
                                                                                                         <div class="col-1">
@@ -181,7 +185,7 @@
 
                                                                                                                                             <script>
                                                                                                                                                 for (var i = 65; i <= 90; i++) {
-                                                                                                                                                document.write('<option >-' + String.fromCharCode(i) + '</option>');
+                                                                                                                                                document.write('<option >-1' + String.fromCharCode(i) + '</option>');
                                                                                                                                                 }
                                                                                                                                             </script>
                                                                                                                                     </select> 

@@ -45,3 +45,11 @@ legend {
 	color: #109e46;;
 }
 
+/* ------------------- */
+label {
+	color: black;
+  }
+  
+  label.focus {
+	color: rgb(41, 147, 189);
+  }
