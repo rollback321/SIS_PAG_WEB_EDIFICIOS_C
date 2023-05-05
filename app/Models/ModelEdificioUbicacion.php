@@ -11,8 +11,8 @@ class ModelEdificioUbicacion extends Model{
     {
 
       
-                $builder = $this->db->table('tb_ubicacion_edificio');
-                $estado = $builder->insert($datos);
+            $builder = $this->db->table('tb_ubicacion_edificio');
+            $estado = $builder->insert($datos);
              $id_insertado = $this->db->insertID();  
                  
 

@@ -58,37 +58,7 @@ class Propietario extends Controller{
       
     }
 
-    public function mostrar_tabla_propietarios()
-    {
-        $modelo = new ModelPropietario();
-        $respuesta = $modelo->pruebita();
-        $data = array();
-        $no = 0;
-
-      // print_r($list);
-        foreach ($respuesta as $propietario) {
-            $no++;
-            $row = array();
-            $row[] = $no;
-            $row[] = $propietario->nombre_dueño;
-            $row[] = $propietario->apellido_paterno." ".$propietario->apellido_materno;
-            $row[] = $propietario->ci;
-            $row[] = $propietario->celular;
-            $row[] = $propietario->correo;
-            // $row[] = '';
-            $row[] = '<button onclick="verEdificios(' . $propietario->id . ')" type="button" class="btn btn-sm btn-outline-info m-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver mas detalles"><i class="fas fa-eye"></i> ver </button>
-                <button onclick="modificar_registro(' . $propietario->id . ')" type="button" class="btn btn-sm btn-outline-warning m-0 p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar registro"><i class="fas fa-edit"></i> Editar</button> 
-            <button onclick="eliminar_registro(' . $propietario->id . ')"  type="button" class="btn btn-sm btn-outline-danger m-0 p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar registro"><i class="fas fa-trash-alt"></i> Eliminar</button> ';
-            $data[] = $row;
-        }
-
-        $output = array(
-           
-            "data" => $data,
-        );
-        echo json_encode($output);
-     
-    }
+   
 
     public function listar_datos_dueño()
     {

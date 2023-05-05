@@ -4,7 +4,7 @@ namespace App\Models;
 use CodeIgniter\Model;
 
 class ModelEdificioCholet extends Model{
-    protected $table      = 'tb_edificios_cholets';
+    protected $table  = 'tb_edificios_cholets';
    
 
     public function insertar_datos($datos)

@@ -77,7 +77,7 @@ $routes->post('modificar_registro', 'Propietario::modificar_registro');
 
 /********** EDIFICIO CRUD************/
 $routes->post('registrar_edificio', 'Edificio_cholet::registrar');
-$routes->post('verificar_si_existencia_propietario', 'Propietario::verificar_si_existencia_propietario');
+$routes->post('verificar_si_existencia_propietario', 'Edificio_cholet::verificar_si_existencia_propietario');
 
 
 

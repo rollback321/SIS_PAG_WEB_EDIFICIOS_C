@@ -153,10 +153,22 @@ function checkbox($data){
 
 public function verificar_si_existencia_propietario (){
 
-    $id_propietario = $this->request->getPost('id');
-    $modelo = new ModelPropietario();
-    $respuesta = $modelo->modificar_registro_propietario($datos,$id);
-    echo json_encode("existe_respuesta");
+    $id_propietario = $this->request->getPost('id_propietario');
+    $modelo = new ModelEdificioCholet();
+    $respuesta = $modelo->verificar_si_existe_dueño($id_propietario);
+
+    $result = [
+        "data" => $respuesta
+    ];
+
+    if(count($respuesta) != 0){
+        $result ["modal"] = 1;
+    } else {
+        $result ["modal"] = 0;
+    }
+   //  $contenido = view('administracion/edificios_cholet/modal_body_registrar');
+    
+    echo json_encode($result);
 
 }
 

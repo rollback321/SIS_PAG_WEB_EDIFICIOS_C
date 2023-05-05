@@ -454,7 +454,7 @@ function modificar_registro(id){
 /*================================================================
 =                         MENSAJES EMERGENTES                  =
 ================================================================*/
-function verEdificios (id){
+function verEdificios(id){
     $("#modal-xl").modal('show');
     $("#id_propietario").val(id);
 
@@ -469,11 +469,29 @@ function verEdificios (id){
         },
         success: function(result) {
             
-           console.log(result);
+            console.log(result.modal);
+
+            if(result.modal != 0){
+                $('#modal_edificio_registrar').hide();
+            } else {
+                $('#modal_edificio_registrar').show();
+
+            }
+
+            //$('#modal_registrar_edificio').html(result);
+            // if(result.length != 0){
+           
+            // } else {
+            //     
+                
+            // }
+
+         //  console.log(result.length);
             // $('#modalModifcarRegistro').modal('hide');
             // tableInicio.ajax.reload(null, false);
             // Swal.fire("Registro modificado con exito");
-                 
+           
+                
         },
         error: function(xhr) {
              mensaje_error_servidor()

@@ -58,6 +58,7 @@ $(document).ready(function () {
         e.preventDefault();
         $("#contenedor_mostrar_google_maps").show();
     });
+    
     $("#icon_cerrar_maps_google").click(function (e) { 
         e.preventDefault();
         $("#contenedor_mostrar_google_maps").hide();
@@ -121,7 +122,7 @@ $.validator.setDefaults({
             success: function(result) {
 
 
-                console.log(result);
+                //console.log(result);
                 // if(result.status){
                 //     mensaje_registro_exitoso_multi_opcion(result.data);
                 //     tableInicio.ajax.reload(null, false);
