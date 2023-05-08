@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+
+    $("#contenido_servicio_hospedaje").hide();    
     $("#contenedor_mostrar_google_maps").hide();
 
     $('.select2').select2({
@@ -21,6 +23,7 @@ $(document).ready(function () {
             form.resetForm();
             $('#forPropietario')[0].reset();
             $("#forPropietario input").removeClass("is-valid");
+            $("#expPropietario").removeClass("is-valid");
             $(".select2").val("1").trigger("change");
             
         });
@@ -31,6 +34,7 @@ $(document).ready(function () {
             form.resetForm();
             $('#forPropietario')[0].reset();
             $("#forPropietario input").removeClass("is-valid");
+            $("#expPropietario").removeClass("is-valid");
             $(".select2").val("1").trigger("change"); 
         });
         
@@ -197,49 +201,49 @@ $.validator.addMethod("validRange", function(value, element) {
             },
             unhighlight: function(element, errorClass, validClass) {
                 $(element).addClass("is-valid").removeClass("is-invalid");
+            },
+            submitHandler: function() {
+        
+                var data = $("#forPropietario").serialize();
+                $.ajax({
+                   type: 'POST',
+                   url: base_url+"/registrar",
+                   data: data,
+                   dataType: 'json',
+                   beforeSend: function() {
+                       $('#btnSubmit').prop('disabled', true);
+                   },
+                   success: function(result) {
+                      console.log(result);
+                       if(result.status){
+                           mensaje_registro_exitoso_multi_opcion(result.data);
+                           tableInicio.ajax.reload(null, false);
+                       } else {
+                           mensaje("Existe un registro identico 'no se pudo registrar'",null,"warning");
+                       }
+                   },
+                   error: function(xhr) {
+                       mensaje_error_servidor()
+                   },
+                   complete: function() {
+                      
+                       $('#btnSubmit').prop('disabled', false);
+                       $('#forPropietario')[0].reset();
+                       $("#forPropietario input").removeClass("is-valid");
+                       $("#expPropietario").removeClass("is-valid");
+                       
+                       $(".select2").val("1").trigger("change"); 
+                   },
+       
+               });
+       
+              
+        
             }
         });
 });
 
-$.validator.setDefaults({
-           
-    submitHandler: function() {
-        
-         var data = $("#forPropietario").serialize();
-         $.ajax({
-            type: 'POST',
-            url: base_url+"/registrar",
-            data: data,
-            dataType: 'json',
-            beforeSend: function() {
-                $('#btnSubmit').prop('disabled', true);
-            },
-            success: function(result) {
-                if(result.status){
-                    mensaje_registro_exitoso_multi_opcion(result.data);
-                    tableInicio.ajax.reload(null, false);
-                } else {
-                    mensaje("Existe un registro identico 'no se pudo registrar' ");
-                }
-            },
-            error: function(xhr) {
-                mensaje_error_servidor()
-            },
-            complete: function() {
-               
-                $('#btnSubmit').prop('disabled', false);
-                $('#forPropietario')[0].reset();
-                $("#forPropietario input").removeClass("is-valid");
-                $(".select2").val("1").trigger("change"); 
-            },
 
-        });
-
-       
- 
-    }
-
-});
  
 
 
@@ -253,7 +257,7 @@ function eliminar_registro (registro_id){
         },
         dataType: 'json',
         success: function(result) {
-            console.log(result);
+         
             tableInicio.ajax.reload(null, false);
         },
         error: function(xhr) {
@@ -275,7 +279,7 @@ function modificar_registro(id){
         },
         dataType: 'json',
         success: function(result) {
-          //  console.log(result);
+          
             $("#nombrePropietario_modificar").val(result[0].nombre_dueño);
             $("#id_propietario_modificar").val(result[0].id);
             $("#apellidoPaternoPropietario_modificar").val(result[0].apellido_paterno);
@@ -288,7 +292,7 @@ function modificar_registro(id){
             $("#emailPropietario_modificar").val(result[0].correo);
             $('#modalModifcarRegistro').modal('show');
 
-
+  
             $("#forPropietario_modificar").validate({
                 rules: {
                     nombrePropietario_modificar: {
@@ -426,10 +430,10 @@ function modificar_registro(id){
                 },
                 success: function(result) {
                     
-                   console.log(result);
+                
                     $('#modalModifcarRegistro').modal('hide');
                     tableInicio.ajax.reload(null, false);
-                    Swal.fire("Registro modificado con exito");
+                    mensaje("Registro modificado con exito",null,"success");
                          
                 },
                 error: function(xhr) {
@@ -454,64 +458,26 @@ function modificar_registro(id){
 /*================================================================
 =                         MENSAJES EMERGENTES                  =
 ================================================================*/
-function verEdificios(id){
-    $("#modal-xl").modal('show');
-    $("#id_propietario").val(id);
-
-    $.ajax({
-        type: 'POST',
-        url: base_url+"/verificar_si_existencia_propietario",
-        data: {
-            id_propietario: id
-        },
-        dataType: 'json',
-        beforeSend: function() {
-        },
-        success: function(result) {
-            
-            console.log(result.modal);
-
-            if(result.modal != 0){
-                $('#modal_edificio_registrar').hide();
-            } else {
-                $('#modal_edificio_registrar').show();
-
-            }
-
-            //$('#modal_registrar_edificio').html(result);
-            // if(result.length != 0){
-           
-            // } else {
-            //     
-                
-            // }
-
-         //  console.log(result.length);
-            // $('#modalModifcarRegistro').modal('hide');
-            // tableInicio.ajax.reload(null, false);
-            // Swal.fire("Registro modificado con exito");
-           
-                
-        },
-        error: function(xhr) {
-             mensaje_error_servidor()
-        },
-        complete: function() {
-           
-            // $('#btnSubmit').prop('disabled', false);
-            // $('#forPropietario')[0].reset();
-            // $("#forPropietario input").removeClass("is-valid");
-        },
-
-    });
-
-}
-
-
 
 /******* Mensaje "Registro exitoso , Error de registro " */
-function mensaje(mensaje){
-    Swal.fire(mensaje);
+function mensaje(mensaje,texto,icon){
+
+    if(texto == null){
+            datos = {
+                title: mensaje,
+                icon: icon
+            }
+    }else{
+        datos = {
+            title: mensaje,
+            text: texto,
+            icon: icon
+        } 
+    }
+ 
+    Swal.fire(
+        datos
+      );
 }
 
 /******* Mensaje "Registro exitoso" opcion de registrar edificio */
@@ -546,10 +512,9 @@ function mensaje_registro_exitoso_multi_opcion(id){
 }
 
 
-function ventana_confirmacion_delete (registro_id){
+function ventana_confirmacion_delete(registro_id){
     Swal.fire({
         title: 'Esta seguro de eliminar el registro?',
-        text: "Confirme si esta seguro de eliminar el registro",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -559,11 +524,10 @@ function ventana_confirmacion_delete (registro_id){
       }).then((result) => {
         if (result.isConfirmed) {
           eliminar_registro (registro_id);
-          Swal.fire(
-            'Registro eliminado',
-            'Registro se elimino con exito',
-            'success'
-          )
+          Swal.fire({
+            title: 'Registro eliminado',        
+            icon: 'success'
+        })
         }
       })
 }

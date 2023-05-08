@@ -82,10 +82,10 @@ class Propietario extends Controller{
             $row[] = $apellidos;
             $row[] = $propietario->ci;
             $row[] = $propietario->celular;
-            $row[] = $propietario->correo;
+            $row[] = $propietario->fecha_registro;
             // $row[] = '';
             $row[] = '<button onclick="verEdificios(' . $propietario->id . ')" type="button" class="btn btn-sm btn-outline-info m-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver mas detalles"><i class="fas fa-eye"></i> ver edificios </button>
-                <button onclick="modificar_registro(' . $propietario->id . ')" type="button" class="btn btn-sm btn-outline-warning m-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar registro"><i class="fas fa-edit"></i> Editar</button> 
+                <button onclick="modificar_registro(' . $propietario->id . ')" type="button" class="btn btn-sm btn-outline-success m-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar registro"><i class="fas fa-edit"></i> Editar</button> 
                <button onclick="ventana_confirmacion_delete (' . $propietario->id . ')"  type="button" class="btn btn-sm btn-outline-danger m-1 p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar registro"><i class="fas fa-trash-alt"></i> Eliminar</button> ';
             $data[] = $row;
             $apellidos = "";

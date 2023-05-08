@@ -29,17 +29,21 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="<?= base_url() ?>/library/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="<?= base_url() ?>/library/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  
+  <!-- menu_body -->
   <link rel="stylesheet" href="<?= base_url() ?>/plug_administracion/menu_body.css">
+<!-- Sweetalert -->
+<link rel="stylesheet" href="<?= base_url() ?>\library\plugins\sweetalert2\sweetalert2.min.css">
+<!-- Sweetalert theme-->
+<link rel="stylesheet" href="<?= base_url() ?>\library\plugins\sweetalert2-theme-bootstrap-4\bootstrap-4.min.css">
 
- 
 
   <!-- jQuery -->
 <script src="<?= base_url() ?>/library/plugins/jquery/jquery.min.js"></script>
   <!-- jQuery  Validation-->
 <script src="<?= base_url() ?>\library\plugins\jquery-validation\jquery.validate.min.js"></script>
 <!-- Sweetalert -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+<script src="<?= base_url() ?>\library\plugins\sweetalert2\sweetalert2.min.js"></script>
 <!-- DataTables -->
 <script src="<?= base_url() ?>\library\plugins\datatables\jquery.dataTables.min.js"></script>
 <script src="<?= base_url() ?>\library\plugins\datatables-bs4\js\dataTables.bootstrap4.min.js"></script>

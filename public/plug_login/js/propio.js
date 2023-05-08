@@ -19,6 +19,7 @@ $("#form_register_login").submit(function(event) {
             } else {
                 $("#id_alerta_error_usuario_nivel1").show();
                 $("#password-field").val("");
+                $("#id_alerta_error_usuario_nivel1").fadeOut(6000);
                // console.log("errores:"+$contardor_de_fallar_iniciar_sesion+"  ");
                 $contardor_de_fallar_iniciar_sesion = $contardor_de_fallar_iniciar_sesion + 1;
 
